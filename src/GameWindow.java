@@ -1,8 +1,9 @@
-import com.sun.org.apache.xpath.internal.SourceTree;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -12,9 +13,12 @@ import java.io.IOException;
 public class GameWindow extends Frame{
     Image backgroundImage;
     Image plane2Image;
-    Image bulletImage;
-    Image enemyphanewhite1Image;
+//    Image bulletImage;
+//    Image enemyphanewhite1Image;
     private int planeX=(400-70)/2;
+    private int planeY=600-65;
+    private int gameW=400;
+    private int gameH=600;
 
     public GameWindow() throws IOException {
         setVisible(true);
@@ -59,8 +63,8 @@ public class GameWindow extends Frame{
 //        }
         backgroundImage= loadImageFromres("background.png");
         plane2Image= loadImageFromres("plane2.png");
-        bulletImage= loadImageFromres("bullet.png");
-        enemyphanewhite1Image=loadImageFromres("enemy_plane_white_1.png");
+//        bulletImage= loadImageFromres("bullet.png");
+//        enemyphanewhite1Image=loadImageFromres("enemy_plane_white_1.png");
         update(getGraphics());
         // 2: Draw image
         repaint();
@@ -75,9 +79,35 @@ public class GameWindow extends Frame{
                 super.keyPressed(e);
                 if (e.getKeyCode()== KeyEvent.VK_RIGHT){
                     // TO DO : MOVE PLANE TO RIGHT
-                    planeX+=10;
-                    repaint();
-                    System.out.println("keyPressed");
+                    if (planeX+10<gameW-70) {
+                        planeX += 10;
+                        repaint();
+                    }
+                    System.out.println("PressedRight");
+                }
+                if (e.getKeyCode() == KeyEvent.VK_LEFT){
+                    // TO DO : MOVE PLANE TO LEFT
+                    if (planeX-10>0) {
+                        planeX -= 10;
+                        repaint();
+                    }
+                    System.out.println("PressedLeft");
+                }
+                if (e.getKeyCode() == KeyEvent.VK_UP){
+                    // TO DO : MOVE PLANE TO UP
+                    if (planeY-10>25){
+                        planeY-=10;
+                        repaint();
+                    }
+                    System.out.println("PressedUp");
+                }
+                if (e.getKeyCode() == KeyEvent.VK_DOWN){
+                    // TO DO : MOVE PLANE TO DOWN
+                    if (planeY+10<gameH-60) {
+                        planeY += 10;
+                        repaint();
+                    }
+                    System.out.println("PressedDown");
                 }
             }
 
@@ -102,10 +132,10 @@ public class GameWindow extends Frame{
     }
     @Override
     public void update(Graphics g) {
-        g.drawImage(backgroundImage,0,0,400,600,null);
-        g.drawImage(plane2Image,planeX,600-65,70,56,null);
-        g.drawImage(bulletImage,180,450,7,17,null);
-        g.drawImage(enemyphanewhite1Image,180,200,16,16,null);
+        g.drawImage(backgroundImage,0,0,gameW, gameH ,null);
+        g.drawImage(plane2Image,planeX,planeY,70,56,null);
+//        g.drawImage(bulletImage,180,450,7,17,null);
+//        g.drawImage(enemyphanewhite1Image,180,200,16,16,null);
 
     }
 }
