@@ -69,52 +69,54 @@ public class GameWindow extends Frame{
         // 2: Draw image
         repaint();
         addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                super.keyTyped(e);
-            }
+//            @Override
+//            public void keyTyped(KeyEvent e) {
+//                super.keyTyped(e);
+//            }
 
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-                if (e.getKeyCode()== KeyEvent.VK_RIGHT){
-                    // TO DO : MOVE PLANE TO RIGHT
-                    if (planeX+10<gameW-70) {
-                        planeX += 10;
-                        repaint();
-                    }
-                    System.out.println("PressedRight");
-                }
-                if (e.getKeyCode() == KeyEvent.VK_LEFT){
-                    // TO DO : MOVE PLANE TO LEFT
-                    if (planeX-10>0) {
-                        planeX -= 10;
-                        repaint();
-                    }
-                    System.out.println("PressedLeft");
-                }
-                if (e.getKeyCode() == KeyEvent.VK_UP){
-                    // TO DO : MOVE PLANE TO UP
-                    if (planeY-10>25){
-                        planeY-=10;
-                        repaint();
-                    }
-                    System.out.println("PressedUp");
-                }
-                if (e.getKeyCode() == KeyEvent.VK_DOWN){
-                    // TO DO : MOVE PLANE TO DOWN
-                    if (planeY+10<gameH-60) {
-                        planeY += 10;
-                        repaint();
-                    }
-                    System.out.println("PressedDown");
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_RIGHT:
+                        // TO DO : MOVE PLANE TO RIGHT
+                        if (planeX + 10 < gameW - 70) {
+                            planeX += 10;
+                            repaint();
+                        }
+                        System.out.println("PressedRight");
+                        break;
+                    case KeyEvent.VK_LEFT:
+                        // TO DO : MOVE PLANE TO LEFT
+                        if (planeX - 10 > 0) {
+                            planeX -= 10;
+                            repaint();
+                        }
+                        System.out.println("PressedLeft");
+                        break;
+                    case KeyEvent.VK_UP:
+                        // TO DO : MOVE PLANE TO UP
+                        if (planeY - 10 > 25) {
+                            planeY -= 10;
+                            repaint();
+                        }
+                        System.out.println("PressedUp");
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        // TO DO : MOVE PLANE TO DOWN
+                        if (planeY + 10 < gameH - 60) {
+                            planeY += 10;
+                            repaint();
+                        }
+                        System.out.println("PressedDown");
+                        break;
                 }
             }
 
-            @Override
-            public void keyReleased(KeyEvent e) {
-                super.keyReleased(e);
-            }
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//                super.keyReleased(e);
+//            }
         });
     }
 
