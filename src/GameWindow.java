@@ -28,14 +28,13 @@ public class GameWindow extends Frame{
     private int planeX=(gameW-planeW)/2;
     private int planeY=gameH-planeH;
     Thread thread;
-    PlayerBullet playerBullet;
     private BufferedImage backBufferImage;
     private Graphics backGraphics;
     private int enemyplaneW=32;
     private int enemyplanH=32;
     private int enemyplaneX=(gameW-enemyplaneW)/2;
     private int enemyplaneY=0;
-    ArrayList<PlayerBullet> listplayerbullet =new ArrayList();
+    ArrayList<PlayerBullet> playerBullets =new ArrayList<>();
     //private int enemybullet=enemyplaneY+10;
 
     public GameWindow() throws IOException {
@@ -108,14 +107,14 @@ public class GameWindow extends Frame{
                         System.out.println("PressedDown");
                         break;
                     case KeyEvent.VK_SPACE:
-                        playerBullet= new PlayerBullet();
-                        listplayerbullet.add(playerBullet);
+                        PlayerBullet playerBullet = new PlayerBullet();
                         playerBullet.w=13;
                         playerBullet.h=33;
-                        playerBullet.image= loadImageFromres("bullet.png");
                         playerBullet.x= (planeX+planeW/2-playerBullet.w/2);
                         playerBullet.y= planeY;
                         playerBullet.speed=5;
+                        playerBullet.image= loadImageFromres("bullet.png");
+                        playerBullets.add(playerBullet);
                         break;
                 }
             }
@@ -136,11 +135,12 @@ public class GameWindow extends Frame{
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    if(enemyplaneY>gameH) {
-                        enemyplaneY=ENEMY_SPEED;
-                    }
-                    else enemyplaneY+=ENEMY_SPEED;
+//                    if(enemyplaneY>gameH) {
+//                        enemyplaneY=ENEMY_SPEED;
+//                    }
+//                    else enemyplaneY+=ENEMY_SPEED;
                     repaint();
+                    for(PlayerBullet playerBullet:playerBullets)
                     if (playerBullet!=null){
                         playerBullet.y-=playerBullet.speed;
                     }
@@ -171,10 +171,13 @@ public class GameWindow extends Frame{
             backGraphics = backBufferImage.getGraphics();
             backGraphics.drawImage(backgroundImage, 0, 0, gameW, gameH, null);
             backGraphics.drawImage(plane2Image, planeX, planeY, planeW, planeH, null);
-            backGraphics.drawImage(enemyphanewhite1Image,enemyplaneX,enemyplaneY,enemyplaneW,enemyplanH,null);
-            if (playerBullet!=null){
-            backGraphics.drawImage(playerBullet.image,playerBullet.x,playerBullet.y,playerBullet.w,playerBullet.h,null);
+            //backGraphics.drawImage(enemyphanewhite1Image,enemyplaneX,enemyplaneY,enemyplaneW,enemyplanH,null);
+            for (PlayerBullet playerBullet: playerBullets){
+                if (playerBullet!=null){
+                    backGraphics.drawImage(playerBullet.image,playerBullet.x,playerBullet.y,playerBullet.w,playerBullet.h,null);
+                }
             }
+
             g.drawImage(backBufferImage, 0, 0, null);
         }
 
