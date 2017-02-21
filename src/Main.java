@@ -8,5 +8,6 @@ public class Main {
         // write your code here
         System.out.println("Hello Android 8");
         GameWindow gameWindow = new GameWindow();
+        gameWindow.start();
     }
 }

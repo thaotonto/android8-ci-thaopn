@@ -1,9 +1,12 @@
+import sun.awt.image.PixelConverter;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -11,18 +14,24 @@ import java.io.IOException;
  * Created by Thaotonto on 2/19/2017.
  */
 public class GameWindow extends Frame{
+    private static final int SPEED =10 ;
     Image backgroundImage;
     Image plane2Image;
 //    Image bulletImage;
 //    Image enemyphanewhite1Image;
-    private int planeX=(400-70)/2;
-    private int planeY=600-65;
+
     private int gameW=400;
     private int gameH=600;
-
+    private int planeW=70;
+    private int planeH=56;
+    private int planeX=(gameW-planeW)/2;
+    private int planeY=gameH-planeH;
+    Thread thread;
+    private BufferedImage backBufferImage;
+    private Graphics backGraphics;
     public GameWindow() throws IOException {
         setVisible(true);
-        setSize(400, 600);
+        setSize(gameW, gameH);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -79,34 +88,34 @@ public class GameWindow extends Frame{
                 super.keyPressed(e);
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_RIGHT:
-                        // TO DO : MOVE PLANE TO RIGHT
-                        if (planeX + 10 < gameW - 70) {
-                            planeX += 10;
-                            repaint();
+                        // TODO : MOVE PLANE TO RIGHT
+                        if (planeX + SPEED < gameW - (planeW-5)) {
+                            planeX += SPEED;
+                            //repaint();
                         }
                         System.out.println("PressedRight");
                         break;
                     case KeyEvent.VK_LEFT:
-                        // TO DO : MOVE PLANE TO LEFT
-                        if (planeX - 10 > 0) {
-                            planeX -= 10;
-                            repaint();
+                        // TODO : MOVE PLANE TO LEFT
+                        if (planeX - SPEED > 0) {
+                            planeX -= SPEED;
+                            //repaint();
                         }
                         System.out.println("PressedLeft");
                         break;
                     case KeyEvent.VK_UP:
-                        // TO DO : MOVE PLANE TO UP
-                        if (planeY - 10 > 25) {
-                            planeY -= 10;
-                            repaint();
+                        // TODO : MOVE PLANE TO UP
+                        if (planeY - SPEED > 25) {
+                            planeY -= SPEED;
+                            //repaint();
                         }
                         System.out.println("PressedUp");
                         break;
                     case KeyEvent.VK_DOWN:
-                        // TO DO : MOVE PLANE TO DOWN
-                        if (planeY + 10 < gameH - 60) {
-                            planeY += 10;
-                            repaint();
+                        // TODO : MOVE PLANE TO DOWN
+                        if (planeY + SPEED < gameH - 60) {
+                            planeY += SPEED;
+                            //repaint();
                         }
                         System.out.println("PressedDown");
                         break;
@@ -118,9 +127,27 @@ public class GameWindow extends Frame{
 //                super.keyReleased(e);
 //            }
         });
+        thread= new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true){
+                    try {
+                        Thread.sleep(17);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    repaint();
+                }
+            }
+        });
+
+        backBufferImage = new BufferedImage(gameW,gameH, BufferedImage.TYPE_INT_ARGB);
+
+
     }
-
-
+    public void start(){
+        thread.start();
+    }
 
 
     private Image loadImageFromres(String url){
@@ -134,8 +161,13 @@ public class GameWindow extends Frame{
     }
     @Override
     public void update(Graphics g) {
-        g.drawImage(backgroundImage,0,0,gameW, gameH ,null);
-        g.drawImage(plane2Image,planeX,planeY,70,56,null);
+        if (backBufferImage!=null) {
+            backGraphics = backBufferImage.getGraphics();
+
+            backGraphics.drawImage(backgroundImage, 0, 0, gameW, gameH, null);
+            backGraphics.drawImage(plane2Image, planeX, planeY, planeW, planeH, null);
+            g.drawImage(backBufferImage, 0, 0, null);
+        }
 //        g.drawImage(bulletImage,180,450,7,17,null);
 //        g.drawImage(enemyphanewhite1Image,180,200,16,16,null);
 
