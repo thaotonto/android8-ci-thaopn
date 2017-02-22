@@ -10,36 +10,31 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Thaotonto on 2/19/2017.
  */
 public class GameWindow extends Frame{
-    private static final int SPEED =10 ;
-    private static final int ENEMY_SPEED = 3;
-    Image backgroundImage;
-    Image plane2Image;
-    Image bulletImage;
-    Image enemyphanewhite1Image;
     private int gameW=400;
     private int gameH=600;
-    private int planeW=70;
-    private int planeH=56;
-    private int planeX=(gameW-planeW)/2;
-    private int planeY=gameH-planeH;
+    Image backgroundImage;
+    PlayerPlane playerPlane =new PlayerPlane();
     Thread thread;
     private BufferedImage backBufferImage;
     private Graphics backGraphics;
-    private int enemyplaneW=32;
-    private int enemyplanH=32;
-    private int enemyplaneX=(gameW-enemyplaneW)/2;
-    private int enemyplaneY=0;
     ArrayList<PlayerBullet> playerBullets =new ArrayList<>();
-    //private int enemybullet=enemyplaneY+10;
-
+    ArrayList<EnemyPlane> enemyPlanes = new ArrayList<>();
+    ArrayList<EnemyBullet> enemyBullets= new ArrayList<>();
+    Random random= new Random();
     public GameWindow() throws IOException {
         setVisible(true);
         setSize(gameW, gameH);
+        playerPlane.speed=8;
+        playerPlane.w=70;
+        playerPlane.h=56;
+        playerPlane.x=(gameW-playerPlane.w)/2;
+        playerPlane.y=gameH-playerPlane.h;
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -58,10 +53,9 @@ public class GameWindow extends Frame{
 
         // 1: Load image
 
-        bulletImage= loadImageFromres("bullet.png");
-        enemyphanewhite1Image= loadImageFromres("enemy_plane_white_1.png");
+
         backgroundImage= loadImageFromres("background.png");
-        plane2Image= loadImageFromres("plane2.png");
+        playerPlane.image= loadImageFromres("plane2.png");
         update(getGraphics());
 
         // 2: Draw image
@@ -80,41 +74,47 @@ public class GameWindow extends Frame{
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_RIGHT:
                         // TODO : MOVE PLANE TO RIGHT
-                        if (planeX + SPEED < gameW - (planeW-5)) {
-                            planeX += SPEED;
+                        if (playerPlane.x + playerPlane.speed < gameW - (playerPlane.w-5)) {
+                            playerPlane.x += playerPlane.speed;
                         }
                         System.out.println("PressedRight");
                         break;
                     case KeyEvent.VK_LEFT:
                         // TODO : MOVE PLANE TO LEFT
-                        if (planeX - SPEED > 0) {
-                            planeX -= SPEED;
+                        if (playerPlane.x - playerPlane.speed > 0) {
+                            playerPlane.x -= playerPlane.speed;
                         }
                         System.out.println("PressedLeft");
                         break;
                     case KeyEvent.VK_UP:
                         // TODO : MOVE PLANE TO UP
-                        if (planeY - SPEED > 25) {
-                            planeY -= SPEED;
+                        if (playerPlane.y - playerPlane.speed > 20) {
+                            playerPlane.y -= playerPlane.speed;
                         }
                         System.out.println("PressedUp");
                         break;
                     case KeyEvent.VK_DOWN:
                         // TODO : MOVE PLANE TO DOWN
-                        if (planeY + SPEED < gameH - 60) {
-                            planeY += SPEED;
+                        if (playerPlane.y + playerPlane.speed < gameH - (playerPlane.h+10)) {
+                            playerPlane.y += playerPlane.speed;
                         }
                         System.out.println("PressedDown");
                         break;
                     case KeyEvent.VK_SPACE:
                         PlayerBullet playerBullet = new PlayerBullet();
+                        PlayerBullet preBullet = new PlayerBullet();
                         playerBullet.w=13;
                         playerBullet.h=33;
-                        playerBullet.x= (planeX+planeW/2-playerBullet.w/2);
-                        playerBullet.y= planeY;
+                        playerBullet.x= (playerPlane.x+playerPlane.w/2-playerBullet.w/2);
+                        playerBullet.y= playerPlane.y;
                         playerBullet.speed=5;
                         playerBullet.image= loadImageFromres("bullet.png");
-                        playerBullets.add(playerBullet);
+                        if (playerBullets.size()!=0){
+                            preBullet=playerBullets.get(playerBullets.size()-1);
+                            if (preBullet.y<(playerBullet.y-(playerBullet.speed+playerBullet.h)))
+                                playerBullets.add(playerBullet);
+                        } else playerBullets.add(playerBullet);
+
                         break;
                 }
             }
@@ -135,14 +135,58 @@ public class GameWindow extends Frame{
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-//                    if(enemyplaneY>gameH) {
-//                        enemyplaneY=ENEMY_SPEED;
-//                    }
-//                    else enemyplaneY+=ENEMY_SPEED;
+                    EnemyPlane enemyPlane= new EnemyPlane();
+                    EnemyPlane pre_enemyPlane= new EnemyPlane();
+                    enemyPlane.h=32;
+                    enemyPlane.w=32;
+                    enemyPlane.y=0;
+                    enemyPlane.speed=1;
+                    enemyPlane.image=loadImageFromres("enemy_plane_white_1.png");
+                    enemyPlane.x=random.nextInt(400);
+                    if (enemyPlanes.size()!=0){
+                        if (enemyPlanes.size()<100){
+                            pre_enemyPlane=enemyPlanes.get(enemyPlanes.size()-1);
+                            if (pre_enemyPlane.x!=enemyPlane.x && pre_enemyPlane.y+pre_enemyPlane.h>enemyPlane.h*5){
+                                enemyPlanes.add(enemyPlane);
+                                EnemyBullet enemyBullet = new EnemyBullet();
+                                enemyBullet.w=32;
+                                enemyBullet.h=32;
+                                enemyBullet.x= (enemyPlane.x+enemyPlane.w/2-enemyBullet.w/2);
+                                enemyBullet.y= enemyPlane.y+enemyBullet.h;
+                                enemyBullet.speed=3;
+                                enemyBullet.image= loadImageFromres("enemy_bullet.png");
+                                enemyBullets.add(enemyBullet);
+                            }
+                        }
+                    } else {
+                        enemyPlanes.add(enemyPlane);
+                        EnemyBullet enemyBullet = new EnemyBullet();
+                        enemyBullet.w=32;
+                        enemyBullet.h=32;
+                        enemyBullet.x= (enemyPlane.x+enemyPlane.w/2-enemyBullet.w/2);
+                        enemyBullet.y= enemyPlane.y+enemyBullet.h;
+                        enemyBullet.speed=3;
+                        enemyBullet.image= loadImageFromres("enemy_bullet.png");
+                        enemyBullets.add(enemyBullet);
+                    }
+                    for(EnemyBullet enemy_bullet: enemyBullets){
+                        if (enemy_bullet!=null){
+                            enemy_bullet.y+=enemy_bullet.speed;
+                        }
+                    }
+                    for(EnemyPlane enemy_Plane: enemyPlanes){
+                        if (enemy_Plane!=null){
+                            enemy_Plane.y+=enemy_Plane.speed;
+                        }
+                    }
+                    EnemyPlane enemyPlane1;
+                    enemyPlane1=enemyPlanes.get(0);
+                    if (enemyPlane1.y>gameH) enemyPlanes.remove(enemyPlane1);
                     repaint();
-                    for(PlayerBullet playerBullet:playerBullets)
+                    for(PlayerBullet playerBullet:playerBullets){
                     if (playerBullet!=null){
                         playerBullet.y-=playerBullet.speed;
+                    }
                     }
                 }
             }
@@ -170,8 +214,17 @@ public class GameWindow extends Frame{
         if (backBufferImage!=null) {
             backGraphics = backBufferImage.getGraphics();
             backGraphics.drawImage(backgroundImage, 0, 0, gameW, gameH, null);
-            backGraphics.drawImage(plane2Image, planeX, planeY, planeW, planeH, null);
-            //backGraphics.drawImage(enemyphanewhite1Image,enemyplaneX,enemyplaneY,enemyplaneW,enemyplanH,null);
+            backGraphics.drawImage(playerPlane.image, playerPlane.x, playerPlane.y, playerPlane.w, playerPlane.h, null);
+            for(EnemyPlane enemyPlane: enemyPlanes){
+                if (enemyPlane!=null){
+                    backGraphics.drawImage(enemyPlane.image,enemyPlane.x,enemyPlane.y,enemyPlane.w,enemyPlane.h,null);
+                }
+            }
+            for (EnemyBullet enemyBullet: enemyBullets){
+                if (enemyBullet!=null){
+                    backGraphics.drawImage(enemyBullet.image,enemyBullet.x,enemyBullet.y,enemyBullet.w,enemyBullet.h,null);
+                }
+            }
             for (PlayerBullet playerBullet: playerBullets){
                 if (playerBullet!=null){
                     backGraphics.drawImage(playerBullet.image,playerBullet.x,playerBullet.y,playerBullet.w,playerBullet.h,null);
