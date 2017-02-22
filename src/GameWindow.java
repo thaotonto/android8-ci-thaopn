@@ -30,8 +30,8 @@ public class GameWindow extends Frame{
         setVisible(true);
         setSize(gameW, gameH);
         playerPlane.speed=8;
-        playerPlane.w=70;
-        playerPlane.h=56;
+        playerPlane.w=50;
+        playerPlane.h=30;
         playerPlane.x=(gameW-playerPlane.w)/2;
         playerPlane.y=gameH-playerPlane.h;
         addWindowListener(new WindowAdapter() {
@@ -87,7 +87,7 @@ public class GameWindow extends Frame{
                         break;
                     case KeyEvent.VK_UP:
                         // TODO : MOVE PLANE TO UP
-                        if (playerPlane.y - playerPlane.speed > 20) {
+                        if (playerPlane.y - playerPlane.speed > 10) {
                             playerPlane.y -= playerPlane.speed;
                         }
                         System.out.println("PressedUp");
@@ -102,8 +102,8 @@ public class GameWindow extends Frame{
                     case KeyEvent.VK_SPACE:
                         PlayerBullet playerBullet = new PlayerBullet();
                         PlayerBullet preBullet = new PlayerBullet();
-                        playerBullet.w=13;
-                        playerBullet.h=33;
+                        playerBullet.w=7;
+                        playerBullet.h=20;
                         playerBullet.x= (playerPlane.x+playerPlane.w/2-playerBullet.w/2);
                         playerBullet.y= playerPlane.y;
                         playerBullet.speed=5;
@@ -136,14 +136,14 @@ public class GameWindow extends Frame{
                     }
                     EnemyPlane enemyPlane= new EnemyPlane();
                     EnemyPlane pre_enemyPlane= new EnemyPlane();
-                    enemyPlane.h=32;
-                    enemyPlane.w=32;
+                    enemyPlane.h=22;
+                    enemyPlane.w=22;
                     enemyPlane.y=0;
                     enemyPlane.speed=1;
                     enemyPlane.image=loadImageFromres("enemy_plane_white_1.png");
                     enemyPlane.x=random.nextInt(gameW-enemyPlane.w);
                     if (enemyPlanes.size()!=0){
-                        if (enemyPlanes.size()<100){
+                        {
                             pre_enemyPlane=enemyPlanes.get(enemyPlanes.size()-1);
                             if (pre_enemyPlane.x!=enemyPlane.x && pre_enemyPlane.y+pre_enemyPlane.h>enemyPlane.h*5){
                                 enemyPlanes.add(enemyPlane);
@@ -157,21 +157,13 @@ public class GameWindow extends Frame{
                             enemy_Plane.y+=enemy_Plane.speed;
                             if (enemy_Plane.y>0) {
                                 EnemyBullet enemyBullet = new EnemyBullet();
-                                EnemyBullet preBullet = new EnemyBullet();
-                                enemyBullet.w = 32;
-                                enemyBullet.h = 32;
+                                enemyBullet.w = 20;
+                                enemyBullet.h = 20;
                                 enemyBullet.x = (enemy_Plane.x + enemy_Plane.w / 2 - enemyBullet.w / 2);
                                 enemyBullet.y = enemy_Plane.y + enemyBullet.h;
                                 enemyBullet.speed = 2;
                                 enemyBullet.image = loadImageFromres("enemy_bullet.png");
-                                if (enemyPlane.enemyBullets.size() != 0) {
-                                    preBullet = enemyPlane.enemyBullets.get(enemyPlane.enemyBullets.size()-1);
-                                    if (enemyBullet.y < preBullet.y -  preBullet.h){
-                                        enemyPlane.enemyBullets.add(enemyBullet);
-                                    }
-                                } else {
-                                    enemyPlane.enemyBullets.add(enemyBullet);
-                                }
+                                enemyPlane.enemyBullets.add(enemyBullet);
                             }
                         }
                     }
@@ -188,22 +180,29 @@ public class GameWindow extends Frame{
                                 if (enemyBullet1.y + enemyBullet1.h > gameH){
                                     enemyPlane.enemyBullets.remove(enemyBullet1);
                                 }
-                            }while(enemyBullet1.y+enemyBullet1.h>gameH);
+                            }while(enemyBullet1.y+enemyBullet1.h>gameH && enemyPlane.enemyBullets.size()!=0);
                         }
                     }
-
                     if(enemyPlanes.size()!=0){
                         EnemyPlane enemyPlane1;
                         do {
                             enemyPlane1 = enemyPlanes.get(0);
                             if (enemyPlane1.y + enemyPlane.h > gameH)
                                 enemyPlanes.remove(enemyPlane1);
-                        }while(enemyPlane1.y+enemyPlane1.h>gameH);
+                        }while(enemyPlane1.y+enemyPlane1.h>gameH && enemyPlanes.size()!=0);
                     }
                     for(PlayerBullet playerBullet:playerBullets){
                         if (playerBullet!=null){
                             playerBullet.y-=playerBullet.speed;
                         }
+                    }
+                    if (playerBullets.size()!=0){
+                        PlayerBullet playerBullet;
+                        do{
+                                playerBullet = playerBullets.get(0);
+                                if (playerBullet.y < 0)
+                                    playerBullets.remove(playerBullet);
+                        }while(playerBullet.y<0 && playerBullets.size()!=0);
                     }
                     repaint();
                 }
