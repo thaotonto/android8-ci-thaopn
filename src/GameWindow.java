@@ -25,7 +25,6 @@ public class GameWindow extends Frame{
     private Graphics backGraphics;
     ArrayList<PlayerBullet> playerBullets =new ArrayList<>();
     ArrayList<EnemyPlane> enemyPlanes = new ArrayList<>();
-    ArrayList<EnemyBullet> enemyBullets= new ArrayList<>();
     Random random= new Random();
     public GameWindow() throws IOException {
         setVisible(true);
@@ -142,52 +141,71 @@ public class GameWindow extends Frame{
                     enemyPlane.y=0;
                     enemyPlane.speed=1;
                     enemyPlane.image=loadImageFromres("enemy_plane_white_1.png");
-                    enemyPlane.x=random.nextInt(400);
+                    enemyPlane.x=random.nextInt(gameW-enemyPlane.w);
                     if (enemyPlanes.size()!=0){
                         if (enemyPlanes.size()<100){
                             pre_enemyPlane=enemyPlanes.get(enemyPlanes.size()-1);
                             if (pre_enemyPlane.x!=enemyPlane.x && pre_enemyPlane.y+pre_enemyPlane.h>enemyPlane.h*5){
                                 enemyPlanes.add(enemyPlane);
-                                EnemyBullet enemyBullet = new EnemyBullet();
-                                enemyBullet.w=32;
-                                enemyBullet.h=32;
-                                enemyBullet.x= (enemyPlane.x+enemyPlane.w/2-enemyBullet.w/2);
-                                enemyBullet.y= enemyPlane.y+enemyBullet.h;
-                                enemyBullet.speed=3;
-                                enemyBullet.image= loadImageFromres("enemy_bullet.png");
-                                enemyBullets.add(enemyBullet);
                             }
                         }
                     } else {
                         enemyPlanes.add(enemyPlane);
-                        EnemyBullet enemyBullet = new EnemyBullet();
-                        enemyBullet.w=32;
-                        enemyBullet.h=32;
-                        enemyBullet.x= (enemyPlane.x+enemyPlane.w/2-enemyBullet.w/2);
-                        enemyBullet.y= enemyPlane.y+enemyBullet.h;
-                        enemyBullet.speed=3;
-                        enemyBullet.image= loadImageFromres("enemy_bullet.png");
-                        enemyBullets.add(enemyBullet);
-                    }
-                    for(EnemyBullet enemy_bullet: enemyBullets){
-                        if (enemy_bullet!=null){
-                            enemy_bullet.y+=enemy_bullet.speed;
-                        }
                     }
                     for(EnemyPlane enemy_Plane: enemyPlanes){
                         if (enemy_Plane!=null){
                             enemy_Plane.y+=enemy_Plane.speed;
+                            if (enemy_Plane.y>0) {
+                                EnemyBullet enemyBullet = new EnemyBullet();
+                                EnemyBullet preBullet = new EnemyBullet();
+                                enemyBullet.w = 32;
+                                enemyBullet.h = 32;
+                                enemyBullet.x = (enemy_Plane.x + enemy_Plane.w / 2 - enemyBullet.w / 2);
+                                enemyBullet.y = enemy_Plane.y + enemyBullet.h;
+                                enemyBullet.speed = 2;
+                                enemyBullet.image = loadImageFromres("enemy_bullet.png");
+                                if (enemyPlane.enemyBullets.size() != 0) {
+                                    preBullet = enemyPlane.enemyBullets.get(enemyPlane.enemyBullets.size()-1);
+                                    if (enemyBullet.y < preBullet.y -  preBullet.h){
+                                        enemyPlane.enemyBullets.add(enemyBullet);
+                                    }
+                                } else {
+                                    enemyPlane.enemyBullets.add(enemyBullet);
+                                }
+                            }
                         }
                     }
-                    EnemyPlane enemyPlane1;
-                    enemyPlane1=enemyPlanes.get(0);
-                    if (enemyPlane1.y>gameH) enemyPlanes.remove(enemyPlane1);
-                    repaint();
+                    for(EnemyPlane enemyPlane1:enemyPlanes){
+                        for(EnemyBullet enemy_bullet: enemyPlane1.enemyBullets){
+                            if (enemy_bullet!=null){
+                                enemy_bullet.y+=enemy_bullet.speed;
+                            }
+                        }
+                        if (enemyPlane.enemyBullets.size()!=0) {
+                            EnemyBullet enemyBullet1;
+                            do {
+                                enemyBullet1 = enemyPlane.enemyBullets.get(0);
+                                if (enemyBullet1.y + enemyBullet1.h > gameH){
+                                    enemyPlane.enemyBullets.remove(enemyBullet1);
+                                }
+                            }while(enemyBullet1.y+enemyBullet1.h>gameH);
+                        }
+                    }
+
+                    if(enemyPlanes.size()!=0){
+                        EnemyPlane enemyPlane1;
+                        do {
+                            enemyPlane1 = enemyPlanes.get(0);
+                            if (enemyPlane1.y + enemyPlane.h > gameH)
+                                enemyPlanes.remove(enemyPlane1);
+                        }while(enemyPlane1.y+enemyPlane1.h>gameH);
+                    }
                     for(PlayerBullet playerBullet:playerBullets){
-                    if (playerBullet!=null){
-                        playerBullet.y-=playerBullet.speed;
+                        if (playerBullet!=null){
+                            playerBullet.y-=playerBullet.speed;
+                        }
                     }
-                    }
+                    repaint();
                 }
             }
         });
@@ -219,10 +237,10 @@ public class GameWindow extends Frame{
                 if (enemyPlane!=null){
                     backGraphics.drawImage(enemyPlane.image,enemyPlane.x,enemyPlane.y,enemyPlane.w,enemyPlane.h,null);
                 }
-            }
-            for (EnemyBullet enemyBullet: enemyBullets){
-                if (enemyBullet!=null){
-                    backGraphics.drawImage(enemyBullet.image,enemyBullet.x,enemyBullet.y,enemyBullet.w,enemyBullet.h,null);
+                for (EnemyBullet enemyBullet: enemyPlane.enemyBullets){
+                    if (enemyBullet!=null){
+                        backGraphics.drawImage(enemyBullet.image,enemyBullet.x,enemyBullet.y,enemyBullet.w,enemyBullet.h,null);
+                    }
                 }
             }
             for (PlayerBullet playerBullet: playerBullets){
