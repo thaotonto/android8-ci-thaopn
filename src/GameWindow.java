@@ -23,6 +23,7 @@ public class GameWindow extends Frame{
     private Graphics backGraphics;
     ArrayList<PlayerBullet> playerBullets =new ArrayList<>();
     ArrayList<EnemyPlane> enemyPlanes = new ArrayList<>();
+    ArrayList<EnemyPlane> removeEnemyplanes= new ArrayList<>();
     ArrayList<Island> islands= new ArrayList<>();
     Random random= new Random();
     int delayIsland=0;
@@ -194,6 +195,17 @@ public class GameWindow extends Frame{
                                 if (playerBullet.y < 0)
                                     playerBullets.remove(playerBullet);
                         }while(playerBullet.y<0 && playerBullets.size()!=0);
+                    }
+                    for (PlayerBullet playerBullet: playerBullets){
+                        for(EnemyPlane enemyPlane: enemyPlanes){
+                            if ((playerBullet.y > enemyPlane.y && playerBullet.y < enemyPlane.y + enemyPlane.h)
+                                    && (playerBullet.x > enemyPlane.x && playerBullet.x < enemyPlane.x + enemyPlane.w))
+                                removeEnemyplanes.add(enemyPlane);
+                        }
+                    }
+                    if (removeEnemyplanes.size()!=0){
+                        enemyPlanes.remove(removeEnemyplanes.get(0));
+                        removeEnemyplanes.remove(0);
                     }
                     delayIsland++;
                     delayEnemyPlane++;
