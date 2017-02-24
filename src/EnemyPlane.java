@@ -1,3 +1,5 @@
+import com.Exploxe;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -12,4 +14,5 @@ public class EnemyPlane {
     public Image image;
     public int speed;
     public ArrayList<EnemyBullet> enemyBullets= new ArrayList<>();
+    int delayExplode=0;
 }

@@ -1,3 +1,5 @@
+import com.Exploxe;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -198,14 +200,41 @@ public class GameWindow extends Frame{
                     }
                     for (PlayerBullet playerBullet: playerBullets){
                         for(EnemyPlane enemyPlane: enemyPlanes){
+                            if (removeEnemyplanes.contains(enemyPlane)) break;
                             if ((playerBullet.y > enemyPlane.y && playerBullet.y < enemyPlane.y + enemyPlane.h)
-                                    && (playerBullet.x > enemyPlane.x && playerBullet.x < enemyPlane.x + enemyPlane.w))
+                                    && (playerBullet.x > enemyPlane.x && playerBullet.x < enemyPlane.x + enemyPlane.w)){
                                 removeEnemyplanes.add(enemyPlane);
+                                break;
+                            }
                         }
                     }
-                    if (removeEnemyplanes.size()!=0){
-                        enemyPlanes.remove(removeEnemyplanes.get(0));
-                        removeEnemyplanes.remove(0);
+                    if (removeEnemyplanes.size()!=0) {
+                        EnemyPlane enemyPlane = removeEnemyplanes.get(0);
+                        enemyPlane.delayExplode++;
+                            switch (enemyPlane.delayExplode) {
+                                case 1:
+                                    enemyPlane.image = loadImageFromres("explode1.png");
+                                    break;
+                                case 10:
+                                    enemyPlane.image = loadImageFromres("explode2.png");
+                                    break;
+                                case 20:
+                                    enemyPlane.image = loadImageFromres("explode3.png");
+                                    break;
+                                case 30:
+                                    enemyPlane.image = loadImageFromres("explode4.png");
+                                    break;
+                                case 40:
+                                    enemyPlane.image = loadImageFromres("explode5.png");
+                                    break;
+                                case 50:
+                                    enemyPlane.image = loadImageFromres("explode6.png");
+                                    break;
+                            }
+                            if(enemyPlane.delayExplode==60) {
+                                enemyPlanes.remove(enemyPlane);
+                                removeEnemyplanes.remove(0);
+                            }
                     }
                     delayIsland++;
                     delayEnemyPlane++;
