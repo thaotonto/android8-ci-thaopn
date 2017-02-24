@@ -201,8 +201,8 @@ public class GameWindow extends Frame{
                     for (PlayerBullet playerBullet: playerBullets){
                         for(EnemyPlane enemyPlane: enemyPlanes){
                             if (removeEnemyplanes.contains(enemyPlane)) break;
-                            if ((playerBullet.y > enemyPlane.y && playerBullet.y < enemyPlane.y + enemyPlane.h)
-                                    && (playerBullet.x > enemyPlane.x && playerBullet.x < enemyPlane.x + enemyPlane.w)){
+                            if ((playerBullet.y >= enemyPlane.y && playerBullet.y <= enemyPlane.y + enemyPlane.h)
+                                    && (playerBullet.x >= enemyPlane.x && playerBullet.x <= enemyPlane.x + enemyPlane.w)){
                                 removeEnemyplanes.add(enemyPlane);
                                 break;
                             }
@@ -215,23 +215,23 @@ public class GameWindow extends Frame{
                                 case 1:
                                     enemyPlane.image = loadImageFromres("explode1.png");
                                     break;
-                                case 10:
+                                case 5:
                                     enemyPlane.image = loadImageFromres("explode2.png");
                                     break;
-                                case 20:
+                                case 10:
                                     enemyPlane.image = loadImageFromres("explode3.png");
                                     break;
-                                case 30:
+                                case 15:
                                     enemyPlane.image = loadImageFromres("explode4.png");
                                     break;
-                                case 40:
+                                case 20:
                                     enemyPlane.image = loadImageFromres("explode5.png");
                                     break;
-                                case 50:
+                                case 25:
                                     enemyPlane.image = loadImageFromres("explode6.png");
                                     break;
                             }
-                            if(enemyPlane.delayExplode==60) {
+                            if(enemyPlane.delayExplode==30) {
                                 enemyPlanes.remove(enemyPlane);
                                 removeEnemyplanes.remove(0);
                             }
