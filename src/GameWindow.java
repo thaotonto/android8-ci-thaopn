@@ -55,7 +55,7 @@ public class GameWindow extends Frame{
         });
 
         // 1: Load image
-        backGround.image=loadImageFromres("background.jpg");
+        backGround.image=loadImageFromres("background.png");
         playerPlane.image= loadImageFromres("plane2.png");
         update(getGraphics());
 
