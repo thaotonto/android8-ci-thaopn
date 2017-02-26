@@ -55,7 +55,7 @@ public class GameWindow extends Frame{
         });
 
         // 1: Load image
-        backGround.image=loadImageFromres("background.png");
+        backGround.image=loadImageFromres("background.jpg");
         playerPlane.image= loadImageFromres("plane2.png");
         update(getGraphics());
 
@@ -213,22 +213,22 @@ public class GameWindow extends Frame{
                         enemyPlane.delayExplode++;
                             switch (enemyPlane.delayExplode) {
                                 case 1:
-                                    enemyPlane.image = loadImageFromres("explode1.png");
+                                    enemyPlane.image = loadImageFromres("explosion1.png");
                                     break;
                                 case 5:
-                                    enemyPlane.image = loadImageFromres("explode2.png");
+                                    enemyPlane.image = loadImageFromres("explosion2.png");
                                     break;
                                 case 10:
-                                    enemyPlane.image = loadImageFromres("explode3.png");
+                                    enemyPlane.image = loadImageFromres("explosion3.png");
                                     break;
                                 case 15:
-                                    enemyPlane.image = loadImageFromres("explode4.png");
+                                    enemyPlane.image = loadImageFromres("explosion4.png");
                                     break;
                                 case 20:
-                                    enemyPlane.image = loadImageFromres("explode5.png");
+                                    enemyPlane.image = loadImageFromres("explosion5.png");
                                     break;
                                 case 25:
-                                    enemyPlane.image = loadImageFromres("explode6.png");
+                                    enemyPlane.image = loadImageFromres("explosion6.png");
                                     break;
                             }
                             if(enemyPlane.delayExplode==30) {
