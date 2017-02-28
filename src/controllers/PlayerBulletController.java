@@ -1,7 +1,10 @@
 package controllers;
 
+import models.GameModel;
 import models.PlayerBulletModel;
+import utils.GameInfo;
 import utils.Utils;
+import views.GameView;
 import views.PlayerBulletView;
 
 import java.awt.*;
@@ -9,18 +12,17 @@ import java.awt.*;
 /**
  * Created by Thaotonto on 2/26/2017.
  */
-public class PlayerBulletController {
-    private PlayerBulletModel model;
-    private PlayerBulletView view;
+public class PlayerBulletController extends GameController {
+
     private boolean active=true;
 
-    public PlayerBulletController(PlayerBulletModel model, PlayerBulletView view) {
-        this.model = model;
-        this.view = view;
+    public PlayerBulletController(GameModel model, GameView view) {
+        super(model, view);
     }
 
+
     public PlayerBulletController(int x, int y){
-        this(new PlayerBulletModel(x,y,7,20),
+        this(new PlayerBulletModel(x,y, GameInfo.playerBulletWidth,GameInfo.playerBulletHeight),
                 new PlayerBulletView(Utils.loadImageFromres("bullet.png")));
     }
 
@@ -29,12 +31,8 @@ public class PlayerBulletController {
     }
 
     public void run(){
-        model.fly();
+        ((PlayerBulletModel)model).fly();
         if (model.getY()<0) active = false;
-    }
-
-    public void draw(Graphics graphics){
-        view.draw(graphics, model);
     }
 
     public boolean checkSpawm(PlayerBulletController playerBulletController){

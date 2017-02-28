@@ -1,7 +1,9 @@
 package controllers;
 
+import models.GameModel;
 import models.PlayerPlaneModel;
 import utils.Utils;
+import views.GameView;
 import views.PlayerPlaneView;
 
 import java.awt.*;
@@ -9,14 +11,12 @@ import java.awt.*;
 /**
  * Created by Thaotonto on 2/26/2017.
  */
-public class PlayerPlaneController {
-    private PlayerPlaneModel model;
-    private PlayerPlaneView view;
+public class PlayerPlaneController extends GameController {
+
     private boolean active = true;
 
-    public PlayerPlaneController( PlayerPlaneModel model,PlayerPlaneView view) {
-        this.view = view;
-        this.model = model;
+    public PlayerPlaneController(GameModel model, GameView view) {
+        super(model, view);
     }
 
     public PlayerPlaneController(int x,int y) {
@@ -26,20 +26,17 @@ public class PlayerPlaneController {
     public boolean isActive() {
         return active;
     }
-    public void draw(Graphics graphics){
-        view.draw(graphics,model);
-    }
     public void moveLeft(){
-        model.moveLeft();
+        ((PlayerPlaneModel)model).moveLeft();
     }
     public void moveRight(int gameWidth){
-        model.moveRight(gameWidth);
+        ((PlayerPlaneModel)model).moveRight(gameWidth);
     }
     public void moveUp(){
-        model.moveUp();
+        ((PlayerPlaneModel)model).moveUp();
     }
     public void moveDown(int gameHeight){
-        model.moveDown(gameHeight);
+        ((PlayerPlaneModel)model).moveDown(gameHeight);
     }
     public int getX(){
         return model.getX();

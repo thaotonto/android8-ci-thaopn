@@ -1,25 +1,28 @@
 package controllers;
 
 import models.EnemyBulletModel;
+import models.GameModel;
+import utils.GameInfo;
 import utils.Utils;
 import views.EnemyBulletView;
+import views.GameView;
 
 import java.awt.*;
 
 /**
  * Created by Thaotonto on 2/26/2017.
  */
-public class EnemyBulletController {
-    private EnemyBulletModel model;
-    private EnemyBulletView view;
+public class EnemyBulletController extends GameController{
+
     private boolean active = true;
-    public EnemyBulletController(EnemyBulletModel model, EnemyBulletView view) {
-        this.model = model;
-        this.view = view;
+
+    public EnemyBulletController(GameModel model, GameView view) {
+        super(model, view);
     }
 
+
     public EnemyBulletController(int x,int y) {
-        this(new EnemyBulletModel(x,y,22,22),
+        this(new EnemyBulletModel(x,y, GameInfo.enemyBulletWidth,GameInfo.enemyBulletHeight),
                 new EnemyBulletView(Utils.loadImageFromres("enemy_bullet.png")));
     }
 
@@ -28,7 +31,8 @@ public class EnemyBulletController {
     }
 
     public void run(int gameHeight){
-        model.fly();
+        EnemyBulletModel enemyBulletModel=(EnemyBulletModel)model;
+        enemyBulletModel.fly();
         if (model.getY()>gameHeight) active = false;
     }
 

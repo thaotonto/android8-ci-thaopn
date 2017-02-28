@@ -9,12 +9,11 @@ import java.awt.*;
 /**
  * Created by Thaotonto on 2/26/2017.
  */
-public class EnemyPlaneView {
-    private Image image;
+public class EnemyPlaneView extends GameView{
     private boolean exploded=false;
 
     public EnemyPlaneView(Image image) {
-        this.image = image;
+        super(image);
     }
 
     public void draw(Graphics graphics, EnemyPlaneModel model){

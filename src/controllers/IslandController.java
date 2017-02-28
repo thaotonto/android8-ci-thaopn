@@ -1,6 +1,7 @@
 package controllers;
 
 import models.IslandModel;
+import utils.GameInfo;
 import utils.Utils;
 import views.IslandView;
 
@@ -22,11 +23,11 @@ public class IslandController {
         int randomImage= (int) (Math.random()*2);
         switch (randomImage) {
             case 0:
-                model= new IslandModel(x,y,64,60);
+                model= new IslandModel(x,y, GameInfo.isLandWidth,GameInfo.isLandHeight);
                 view= new IslandView(Utils.loadImageFromres("island.png"));
                 break;
             case 1:
-                model= new IslandModel(x,y,64,60);
+                model= new IslandModel(x,y,GameInfo.isLandWidth,GameInfo.isLandHeight);
                 view= new IslandView(Utils.loadImageFromres("island-2.png"));
                 break;
         }

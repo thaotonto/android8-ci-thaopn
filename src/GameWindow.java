@@ -1,4 +1,5 @@
 import controllers.*;
+import utils.GameInfo;
 import utils.Utils;
 
 import java.awt.*;
@@ -33,8 +34,8 @@ public class GameWindow extends Frame{
     BackGround backGround = new BackGround();
 
     public GameWindow() throws IOException {
-        gameH=600;
-        gameW=400;
+        gameH= GameInfo.gameHeight;
+        gameW=GameInfo.gameWidth;
         setVisible(true);
         setSize(gameW, gameH);
         backGround.w=400;
@@ -87,7 +88,7 @@ public class GameWindow extends Frame{
                         break;
                     case KeyEvent.VK_SPACE:
                         // TODO : FIRE BULLET
-                        PlayerBulletController playerBulletController = new PlayerBulletController((playerPlaneController.getX()+playerPlaneController.getWidth()/2-7/2),
+                        PlayerBulletController playerBulletController = new PlayerBulletController((playerPlaneController.getX()+playerPlaneController.getWidth()/2-GameInfo.playerBulletWidth/2),
                                 playerPlaneController.getY());
                         if (playerBulletControllers.size()!=0){
                             PlayerBulletController prePlayerBulletController = playerBulletControllers.get(playerBulletControllers.size()-1);
@@ -142,22 +143,18 @@ public class GameWindow extends Frame{
                         if (islandController.isActive()==false) iterIsland.remove();
                     }
                     if (delayEnemyPlane==70){
-                        EnemyPlaneController enemyPlaneController = new EnemyPlaneController(random.nextInt(gameW - 22),0);
+                        EnemyPlaneController enemyPlaneController = new EnemyPlaneController(random.nextInt(gameW - GameInfo.enemyPlaneWidth),0);
                         enemyPlaneControllers.add(enemyPlaneController);
                         delayEnemyPlane = 0;
                     }
                     if (delayIsland==300){
-                        IslandController islandController=new IslandController(gameW-64,0);
+                        IslandController islandController=new IslandController(gameW-GameInfo.isLandWidth,0);
                         islandControllers.add(islandController);
                         delayIsland=0;
                     }
-//                    for(PlayerBulletController playerBulletController: playerBulletControllers){
-//
-//
-//                    }
                     for(EnemyPlaneController enemyPlaneController: enemyPlaneControllers){
                         if (enemyPlaneController.getDelayBullet()==100 && enemyPlaneController.getExplode()==false){
-                                EnemyBulletController enemyBulletController= new EnemyBulletController(enemyPlaneController.getX()+enemyPlaneController.getWidth()/2-22/2,
+                                EnemyBulletController enemyBulletController= new EnemyBulletController(enemyPlaneController.getX()+enemyPlaneController.getWidth()/2-GameInfo.enemyBulletWidth/2,
                                         enemyPlaneController.getY()+5);
                                 enemyBulletControllers.add(enemyBulletController);
                                 enemyPlaneController.setDelayBullet(0);
