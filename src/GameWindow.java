@@ -25,6 +25,7 @@ public class GameWindow extends Frame{
     ArrayList<PlayerBulletController> playerBulletControllers = new ArrayList<>();
     ArrayList<EnemyPlaneController> enemyPlaneControllers = new ArrayList<>();
     ArrayList<IslandController> islandControllers = new ArrayList<>();
+    ArrayList<EnemyBulletController> enemyBulletControllers= new ArrayList<>();
     PlayerPlaneController playerPlaneController;
     int delayIsland=0;
     int delayEnemyPlane=0;
@@ -113,18 +114,26 @@ public class GameWindow extends Frame{
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    delayIsland++;
+                    delayEnemyPlane++;
                     Iterator<PlayerBulletController> iterplayerBullet = playerBulletControllers.iterator();
                     Iterator<EnemyPlaneController> iterenemyPlane = enemyPlaneControllers.iterator();
                     Iterator<IslandController> iterIsland = islandControllers.iterator();
                     while (iterplayerBullet.hasNext()){
                         PlayerBulletController playerBulletController= iterplayerBullet.next();
                         playerBulletController.run();
+                        if (playerBulletController.isActive()==true)
+                        for(EnemyPlaneController enemyPlaneController:enemyPlaneControllers){
+                            if (enemyPlaneController.isActive()==true && enemyPlaneController.getExplode()==false ) {
+                                enemyPlaneController.isExplode(playerBulletController);
+                            }
+                        }
                         if (playerBulletController.isActive()==false) iterplayerBullet.remove();
                     }
                     while (iterenemyPlane.hasNext()){
                         EnemyPlaneController enemyPlaneController= iterenemyPlane.next();
                         enemyPlaneController.run(gameH);
-                        if (enemyPlaneController.isActive()==false && enemyPlaneController.getEnemyBulletControllers().size()==0)
+                        if (enemyPlaneController.isActive()==false )
                             iterenemyPlane.remove();
                     }
                     while (iterIsland.hasNext()){
@@ -142,31 +151,24 @@ public class GameWindow extends Frame{
                         islandControllers.add(islandController);
                         delayIsland=0;
                     }
-                    delayIsland++;
-                    delayEnemyPlane++;
+//                    for(PlayerBulletController playerBulletController: playerBulletControllers){
+//
+//
+//                    }
                     for(EnemyPlaneController enemyPlaneController: enemyPlaneControllers){
                         if (enemyPlaneController.getDelayBullet()==100 && enemyPlaneController.getExplode()==false){
-                            enemyPlaneController.genBullet();
-                        }
-                        enemyPlaneController.setDelayBullet();
-                        Iterator<EnemyBulletController> iterenemyBullet= enemyPlaneController.getEnemyBulletControllers().iterator();
-                        while(iterenemyBullet.hasNext()){
-                            EnemyBulletController enemyBulletController= iterenemyBullet.next();
-                            enemyBulletController.run(gameH);
-                            if (enemyBulletController.isActive()==false) iterenemyBullet.remove();
-                        }
-                    }
-                    for(PlayerBulletController playerBulletController: playerBulletControllers){
-                        if (playerBulletController.isActive()==true)
-                            for(EnemyPlaneController enemyPlaneController:enemyPlaneControllers){
-                                if (enemyPlaneController.isActive()==true && enemyPlaneController.getExplode()==false &&playerBulletController.isActive()==true) {
-                                    enemyPlaneController.isExplode(playerBulletController);
-                                }
-                                if (enemyPlaneController.getExplode()==true) {
-                                    enemyPlaneController.setDelayExplosion();
-                                    if (enemyPlaneController.getDelayExplosion()==7) enemyPlaneController.setActive();
-                                }
+                                EnemyBulletController enemyBulletController= new EnemyBulletController(enemyPlaneController.getX()+enemyPlaneController.getWidth()/2-22/2,
+                                        enemyPlaneController.getY()+5);
+                                enemyBulletControllers.add(enemyBulletController);
+                                enemyPlaneController.setDelayBullet(0);
                             }
+                        enemyPlaneController.setDelayBullet();
+                        }
+                    Iterator<EnemyBulletController> iterenemyBullet= enemyBulletControllers.iterator();
+                    while(iterenemyBullet.hasNext()) {
+                        EnemyBulletController enemyBulletController = iterenemyBullet.next();
+                        enemyBulletController.run(gameH);
+                        if (enemyBulletController.isActive() == false) iterenemyBullet.remove();
                     }
                     repaint();
                 }
@@ -190,9 +192,9 @@ public class GameWindow extends Frame{
             playerPlaneController.draw(backGraphics);
             for(EnemyPlaneController enemyPlaneController:enemyPlaneControllers){
                 enemyPlaneController.draw(backGraphics);
-                for(EnemyBulletController enemyBulletController:enemyPlaneController.getEnemyBulletControllers()){
-                    enemyBulletController.draw(backGraphics);
-                }
+            }
+            for(EnemyBulletController enemyBulletController: enemyBulletControllers){
+                enemyBulletController.draw(backGraphics);
             }
             for(PlayerBulletController playerBulletController:playerBulletControllers){
                 playerBulletController.draw(backGraphics);

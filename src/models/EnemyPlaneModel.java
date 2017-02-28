@@ -11,7 +11,6 @@ public class EnemyPlaneModel {
     private int width;
     private int height;
     private static final int SPEED = 2;
-    private int delayExplosion=0;
 
     public EnemyPlaneModel(int x, int y, int width, int height) {
         this.x = x;
@@ -44,11 +43,4 @@ public class EnemyPlaneModel {
         y+=SPEED;
     }
 
-    public int getDelayExplosion() {
-        return delayExplosion;
-    }
-
-    public void setDelayExplosion() {
-        this.delayExplosion +=1;
-    }
 }

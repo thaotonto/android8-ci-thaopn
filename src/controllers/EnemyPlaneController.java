@@ -15,8 +15,8 @@ public class EnemyPlaneController {
     private EnemyPlaneView view;
     private boolean active=true;
     private int delayBullet=0;
-    private ArrayList<EnemyBulletController> enemyBulletControllers= new ArrayList<>();
     private boolean explode=false;
+    private int delayExplosion=0;
 
     public EnemyPlaneController(EnemyPlaneModel model, EnemyPlaneView view) {
         this.model = model;
@@ -34,6 +34,30 @@ public class EnemyPlaneController {
     public void run(int gameHeight){
         model.fly();
         if (model.getY()>gameHeight) active=false;
+        if (explode==true) delayExplosion++;
+        switch (delayExplosion) {
+            case 1:
+                view.setImage(Utils.loadImageFromres("explosion6.png"));
+                break;
+            case 2:
+                view.setImage(Utils.loadImageFromres("explosion5.png"));
+                break;
+            case 3:
+                view.setImage(Utils.loadImageFromres("explosion4.png"));
+                break;
+            case 4:
+                view.setImage(Utils.loadImageFromres("explosion3.png"));
+                break;
+            case 5:
+                view.setImage(Utils.loadImageFromres("explosion2.png"));
+                break;
+            case 6:
+                view.setImage(Utils.loadImageFromres("explosion1.png"));
+                break;
+            case 7:
+                setActive();
+                break;
+        }
     }
 
     public void draw(Graphics graphics){
@@ -48,14 +72,20 @@ public class EnemyPlaneController {
         this.delayBullet += 1;
     }
 
-    public void genBullet(){
-        EnemyBulletController enemyBulletController= new EnemyBulletController(model.getX()+model.getWidth()/2-22/2,model.getY()+5);
-        enemyBulletControllers.add(enemyBulletController);
-        delayBullet=0;
+    public void setDelayBullet(int delayBullet) {
+        this.delayBullet = delayBullet;
     }
 
-    public ArrayList<EnemyBulletController> getEnemyBulletControllers() {
-        return enemyBulletControllers;
+    public int getX(){
+        return model.getX();
+    }
+
+    public int getY(){
+        return model.getY();
+    }
+
+    public int getWidth(){
+        return model.getWidth();
     }
 
     public void isExplode(PlayerBulletController playerBulletController) {
@@ -68,14 +98,6 @@ public class EnemyPlaneController {
 
     public boolean getExplode(){
         return explode;
-    }
-
-    public void setDelayExplosion(){
-        model.setDelayExplosion();
-    }
-
-    public int getDelayExplosion(){
-        return model.getDelayExplosion();
     }
 
     public void setActive() {
