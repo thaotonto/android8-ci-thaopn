@@ -3,11 +3,9 @@ package controllers;
 import models.EnemyPlaneModel;
 import models.GameModel;
 import utils.GameInfo;
-import utils.Utils;
 import views.EnemyPlaneView;
 import views.GameView;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -18,56 +16,46 @@ public class EnemyPlaneController extends GameController{
     private boolean active=true;
     private int delayBullet=0;
     private boolean explode=false;
-    private int delayExplosion=0;
+    ArrayList<EnemyBulletController> enemyBulletControllers;
 
-    public EnemyPlaneController(GameModel model, GameView view) {
+    public EnemyPlaneController(GameModel model, GameView view,ArrayList<EnemyBulletController> enemyBulletControllers,int type) {
         super(model, view);
+        this.enemyBulletControllers=enemyBulletControllers;
+        ((EnemyPlaneView)view).setImageType((EnemyPlaneModel)model);
     }
 
-    public EnemyPlaneController(int x,int y) {
-        this(new EnemyPlaneModel(x,y, GameInfo.enemyPlaneWidth,GameInfo.enemyPlaneHeight),new EnemyPlaneView(Utils.loadImageFromres("enemy_plane_white_1.png")));
+    public EnemyPlaneController(int x,int y,ArrayList<EnemyBulletController> enemyBulletControllers,int type) {
+        this(new EnemyPlaneModel(x,y, GameInfo.enemyPlaneWidth,GameInfo.enemyPlaneHeight,type),
+                new EnemyPlaneView(GameInfo.enemyPlanewhite3Image),enemyBulletControllers,type);
     }
 
     public boolean isActive() {
         return active;
     }
 
-    public void run(int gameHeight){
+    public void run(){
         if (model instanceof EnemyPlaneModel){
             if(view instanceof EnemyPlaneView){
                 ((EnemyPlaneModel) model).fly();
-                if (model.getY()>gameHeight) active=false;
-                if (explode==true) delayExplosion++;
-                switch (delayExplosion) {
-                    case 1:
-                        ((EnemyPlaneView) view).setImage(Utils.loadImageFromres("explosion6.png"));
-                        break;
-                    case 2:
-                        ((EnemyPlaneView) view).setImage(Utils.loadImageFromres("explosion5.png"));
-                        break;
-                    case 3:
-                        ((EnemyPlaneView) view).setImage(Utils.loadImageFromres("explosion4.png"));
-                        break;
-                    case 4:
-                        ((EnemyPlaneView) view).setImage(Utils.loadImageFromres("explosion3.png"));
-                        break;
-                    case 5:
-                        ((EnemyPlaneView) view).setImage(Utils.loadImageFromres("explosion2.png"));
-                        break;
-                    case 6:
-                        ((EnemyPlaneView) view).setImage(Utils.loadImageFromres("explosion1.png"));
-                        break;
-                    case 7:
-                        setActive();
-                        break;
+                if (model.getY()>GameInfo.gameHeight) active=false;
+                if (explode==true) {
+                    ((EnemyPlaneView) view).explode();
+                    if (((EnemyPlaneView)view).isExploded()==true) setActive();
                 }
+                else
+                ((EnemyPlaneView)view).updateImage();
             }
         }
 
     }
 
-    public int getDelayBullet() {
-        return delayBullet;
+    public void shoot(){
+        if (delayBullet==GameInfo.delayBullettime && explode==false) {
+            EnemyBulletController enemyBulletController = new EnemyBulletController(model.getX() + model.getWidth() / 2 - GameInfo.enemyBulletWidth / 2,
+                    model.getY() + 5);
+            enemyBulletControllers.add(enemyBulletController);
+            setDelayBullet(0);
+        }
     }
 
     public void setDelayBullet() {
@@ -86,16 +74,21 @@ public class EnemyPlaneController extends GameController{
         return model.getY();
     }
 
-    public int getWidth(){
-        return model.getWidth();
+//    public void isExplode(PlayerBulletController playerBulletController) {
+//        if (model.checkContact(playerBulletController.getModel())==true) {
+//            ((EnemyPlaneModel)model).setHealth();
+//            if (((EnemyPlaneModel) model).getHealth()==0)
+//                explode = true;
+//            playerBulletController.setActive();
+//        }
+//    }
+
+    public GameModel getModel(){
+        return model;
     }
 
-    public void isExplode(PlayerBulletController playerBulletController) {
-        if ((playerBulletController.getY() >= model.getY() && playerBulletController.getY() <= model.getY() + model.getHeight())
-                && (playerBulletController.getX() >= model.getX() && playerBulletController.getX() <= model.getX() + model.getWidth())) {
-            explode = true;
-            playerBulletController.setActive();
-        }
+    public void setExplode(){
+        explode=true;
     }
 
     public boolean getExplode(){
@@ -105,4 +98,13 @@ public class EnemyPlaneController extends GameController{
     public void setActive() {
         this.active = false;
     }
+
+    public int getHealth(){
+        return ((EnemyPlaneModel)model).getHealth();
+    }
+
+    public void setHealth(){
+        ((EnemyPlaneModel)model).setHealth();
+    }
+
 }

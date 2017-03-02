@@ -1,6 +1,5 @@
 import controllers.*;
 import utils.GameInfo;
-import utils.Utils;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -11,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -23,26 +23,26 @@ public class GameWindow extends Frame{
     private Graphics backGraphics;
     Thread thread;
     Random random= new Random();
-    ArrayList<PlayerBulletController> playerBulletControllers = new ArrayList<>();
-    ArrayList<EnemyPlaneController> enemyPlaneControllers = new ArrayList<>();
-    ArrayList<IslandController> islandControllers = new ArrayList<>();
-    ArrayList<EnemyBulletController> enemyBulletControllers= new ArrayList<>();
     PlayerPlaneController playerPlaneController;
+    ArrayList<PlayerBulletController> playerBulletControllers ;
+    ArrayList<EnemyPlaneController> enemyPlaneControllers;
+    ArrayList<IslandController> islandControllers ;
+    ArrayList<EnemyBulletController> enemyBulletControllers;
+    ArrayList<MineController> mineControllers;
+    ArrayList<PowerUpController> powerUpControllers;
+    BackGroundController backGroundController;
     int delayIsland=0;
-    int delayEnemyPlane=0;
-
-    BackGround backGround = new BackGround();
+    int delayEnemyPlane1=0;
+    int delayEnemyPlane2=0;
+    int delayPowerUp=0;
+    int delayMine=0;
 
     public GameWindow() throws IOException {
         gameH= GameInfo.gameHeight;
         gameW=GameInfo.gameWidth;
         setVisible(true);
         setSize(gameW, gameH);
-        backGround.w=400;
-        backGround.h=600;
-        backGround.x=0;
-        backGround.y=0;
-
+        backGroundController = new BackGroundController(0,0);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -51,9 +51,15 @@ public class GameWindow extends Frame{
                 System.exit(0);
             }
         });
-        playerPlaneController = new PlayerPlaneController((gameW-50)/2,gameH-30);
+        playerBulletControllers = new ArrayList<>();
+        islandControllers = new ArrayList<>();
+        enemyPlaneControllers = new ArrayList<>();
+        enemyBulletControllers= new ArrayList<>();
+        powerUpControllers=new ArrayList<>();
+        mineControllers= new ArrayList<>();
+        playerPlaneController = new PlayerPlaneController((gameW-GameInfo.playerPlaneWidth)/2,
+                gameH-GameInfo.playerPlaneHeight,playerBulletControllers);
         // 1: Load image
-        backGround.image=Utils.loadImageFromres("background.png");
         update(getGraphics());
 
         // 2: Draw image
@@ -71,103 +77,156 @@ public class GameWindow extends Frame{
                 super.keyPressed(e);
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_RIGHT:
-                        // TODO : MOVE PLANE TO RIGHT
-                        playerPlaneController.moveRight(gameW);
+                        playerPlaneController.setRight(true);
                         break;
                     case KeyEvent.VK_LEFT:
-                        // TODO : MOVE PLANE TO LEFT
-                        playerPlaneController.moveLeft();
+                        playerPlaneController.setLeft(true);
                         break;
                     case KeyEvent.VK_UP:
-                        // TODO : MOVE PLANE TO UP
-                        playerPlaneController.moveUp();
+                        playerPlaneController.setUp(true);
                         break;
                     case KeyEvent.VK_DOWN:
-                        // TODO : MOVE PLANE TO DOWN
-                        playerPlaneController.moveDown(gameH);
+                        playerPlaneController.setDown(true);
                         break;
                     case KeyEvent.VK_SPACE:
-                        // TODO : FIRE BULLET
-                        PlayerBulletController playerBulletController = new PlayerBulletController((playerPlaneController.getX()+playerPlaneController.getWidth()/2-GameInfo.playerBulletWidth/2),
-                                playerPlaneController.getY());
-                        if (playerBulletControllers.size()!=0){
-                            PlayerBulletController prePlayerBulletController = playerBulletControllers.get(playerBulletControllers.size()-1);
-                            if (playerBulletController.checkSpawm(prePlayerBulletController)==true)
-                                playerBulletControllers.add(playerBulletController);
-                        } else  playerBulletControllers.add(playerBulletController);
+                        playerPlaneController.setShoot(true);
                         break;
                 }
             }
 
-//            @Override
-//            public void keyReleased(KeyEvent e) {
-//                super.keyReleased(e);
-//            }
-
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyReleased(e);
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_RIGHT:
+                        playerPlaneController.setRight(false);
+                        break;
+                    case KeyEvent.VK_LEFT:
+                        playerPlaneController.setLeft(false);
+                        break;
+                    case KeyEvent.VK_UP:
+                        playerPlaneController.setUp(false);
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        playerPlaneController.setDown(false);
+                        break;
+                    case KeyEvent.VK_SPACE:
+                        playerPlaneController.setShoot(false);
+                        break;
+                }
+            }
         });
 
         thread= new Thread(new Runnable() {
             @Override
             public void run() {
-                while(true){
+                while (true) {
                     try {
                         Thread.sleep(17);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    delayIsland++;
-                    delayEnemyPlane++;
-                    Iterator<PlayerBulletController> iterplayerBullet = playerBulletControllers.iterator();
-                    Iterator<EnemyPlaneController> iterenemyPlane = enemyPlaneControllers.iterator();
-                    Iterator<IslandController> iterIsland = islandControllers.iterator();
-                    while (iterplayerBullet.hasNext()){
-                        PlayerBulletController playerBulletController= iterplayerBullet.next();
-                        playerBulletController.run();
-                        if (playerBulletController.isActive()==true)
-                        for(EnemyPlaneController enemyPlaneController:enemyPlaneControllers){
-                            if (enemyPlaneController.isActive()==true && enemyPlaneController.getExplode()==false ) {
-                                enemyPlaneController.isExplode(playerBulletController);
+                    if (playerPlaneController.isActive()) {
+                        playerPlaneController.run();
+                        delayIsland++;
+                        delayEnemyPlane1++;
+                        Iterator<PlayerBulletController> iterplayerBullet = playerBulletControllers.iterator();
+                        Iterator<EnemyPlaneController> iterenemyPlane = enemyPlaneControllers.iterator();
+                        Iterator<IslandController> iterIsland = islandControllers.iterator();
+                        Iterator<MineController> iterMine = mineControllers.iterator();
+                        Iterator<PowerUpController> iterPowerUp = powerUpControllers.iterator();
+                        while (iterplayerBullet.hasNext()) {
+                            PlayerBulletController playerBulletController = iterplayerBullet.next();
+                            playerBulletController.run();
+                            if (playerBulletController.isActive() == true)
+                                for (EnemyPlaneController enemyPlaneController : enemyPlaneControllers) {
+                                    if (enemyPlaneController.isActive() == true && enemyPlaneController.getExplode() == false) {
+                                        playerBulletController.shoot(enemyPlaneController);
+                                    }
+                                }
+                            for (MineController mineController : mineControllers) {
+                                if (mineController.isActive() == true && mineController.isExplode() == false)
+                                    playerBulletController.shoot(mineController);
                             }
+                            if (playerBulletController.isActive() == false) iterplayerBullet.remove();
                         }
-                        if (playerBulletController.isActive()==false) iterplayerBullet.remove();
-                    }
-                    while (iterenemyPlane.hasNext()){
-                        EnemyPlaneController enemyPlaneController= iterenemyPlane.next();
-                        enemyPlaneController.run(gameH);
-                        if (enemyPlaneController.isActive()==false )
-                            iterenemyPlane.remove();
-                    }
-                    while (iterIsland.hasNext()){
-                        IslandController islandController = iterIsland.next();
-                        islandController.run(gameH);
-                        if (islandController.isActive()==false) iterIsland.remove();
-                    }
-                    if (delayEnemyPlane==70){
-                        EnemyPlaneController enemyPlaneController = new EnemyPlaneController(random.nextInt(gameW - GameInfo.enemyPlaneWidth),0);
-                        enemyPlaneControllers.add(enemyPlaneController);
-                        delayEnemyPlane = 0;
-                    }
-                    if (delayIsland==300){
-                        IslandController islandController=new IslandController(gameW-GameInfo.isLandWidth,0);
-                        islandControllers.add(islandController);
-                        delayIsland=0;
-                    }
-                    for(EnemyPlaneController enemyPlaneController: enemyPlaneControllers){
-                        if (enemyPlaneController.getDelayBullet()==100 && enemyPlaneController.getExplode()==false){
-                                EnemyBulletController enemyBulletController= new EnemyBulletController(enemyPlaneController.getX()+enemyPlaneController.getWidth()/2-GameInfo.enemyBulletWidth/2,
-                                        enemyPlaneController.getY()+5);
-                                enemyBulletControllers.add(enemyBulletController);
-                                enemyPlaneController.setDelayBullet(0);
+                        while (iterenemyPlane.hasNext()) {
+                            EnemyPlaneController enemyPlaneController = iterenemyPlane.next();
+                            enemyPlaneController.run();
+                            playerPlaneController.contact(enemyPlaneController);
+                            if (enemyPlaneController.isActive() == false)
+                                iterenemyPlane.remove();
+                        }
+                        while (iterMine.hasNext()) {
+                            MineController mineController = iterMine.next();
+                            mineController.run();
+                            playerPlaneController.contact(mineController);
+                            if (mineController.isActive() == false)
+                                iterMine.remove();
+                        }
+                        while (iterPowerUp.hasNext()) {
+                            PowerUpController powerUpController = iterPowerUp.next();
+                            powerUpController.run();
+                            playerPlaneController.contact(powerUpController);
+                            if (powerUpController.isActive() == false)
+                                iterPowerUp.remove();
+                        }
+                        while (iterIsland.hasNext()) {
+                            IslandController islandController = iterIsland.next();
+                            islandController.run();
+                            if (islandController.isActive() == false) iterIsland.remove();
+                        }
+                        if (delayEnemyPlane1 == GameInfo.delayEnemyPlane1time) {
+                            EnemyPlaneController enemyPlaneController = new EnemyPlaneController(random.nextInt(gameW - GameInfo.enemyPlaneWidth), 0,
+                                    enemyBulletControllers, 1);
+                            enemyPlaneControllers.add(enemyPlaneController);
+                            delayEnemyPlane1 = 0;
+                        }
+                        if (delayEnemyPlane2 == GameInfo.delayEnemyPlane2time) {
+                            EnemyPlaneController enemyPlaneController = new EnemyPlaneController(0, 0,
+                                    enemyBulletControllers, 2);
+                            enemyPlaneControllers.add(enemyPlaneController);
+                            delayEnemyPlane2 = 0;
+                        }
+                        delayEnemyPlane2++;
+                        if (delayIsland == GameInfo.delayIslandtime) {
+                            IslandController islandController = null;
+                            switch (random.nextInt(2)) {
+                                case 0:
+                                    islandController = new IslandController((int) (Math.random() * GameInfo.gameWidth), 0, GameInfo.Island1Image);
+                                    break;
+                                case 1:
+                                    islandController = new IslandController((int) (Math.random() * GameInfo.gameWidth), 0, GameInfo.Island2Image);
+                                    break;
                             }
-                        enemyPlaneController.setDelayBullet();
+                            islandControllers.add(islandController);
+                            delayIsland = 0;
                         }
-                    Iterator<EnemyBulletController> iterenemyBullet= enemyBulletControllers.iterator();
-                    while(iterenemyBullet.hasNext()) {
-                        EnemyBulletController enemyBulletController = iterenemyBullet.next();
-                        enemyBulletController.run(gameH);
-                        if (enemyBulletController.isActive() == false) iterenemyBullet.remove();
+                        for (EnemyPlaneController enemyPlaneController : enemyPlaneControllers) {
+                            enemyPlaneController.shoot();
+                            enemyPlaneController.setDelayBullet();
+                        }
+                        Iterator<EnemyBulletController> iterenemyBullet = enemyBulletControllers.iterator();
+                        while (iterenemyBullet.hasNext()) {
+                            EnemyBulletController enemyBulletController = iterenemyBullet.next();
+                            enemyBulletController.run();
+                            playerPlaneController.contact(enemyBulletController);
+                            if (enemyBulletController.isActive() == false) iterenemyBullet.remove();
+                        }
+                        if (delayMine == GameInfo.delayMinetime) {
+                            MineController mineController = new MineController(random.nextInt(GameInfo.gameWidth), 0);
+                            mineControllers.add(mineController);
+                            delayMine = 0;
+                        }
+                        delayMine++;
+                        if (delayPowerUp == GameInfo.delayPowerUptime) {
+                            PowerUpController powerUpController = new PowerUpController(random.nextInt(GameInfo.gameWidth), 0);
+                            powerUpControllers.add(powerUpController);
+                            delayPowerUp = 0;
+                        }
+                        delayPowerUp++;
+                        repaint();
                     }
-                    repaint();
                 }
             }
         });
@@ -182,7 +241,7 @@ public class GameWindow extends Frame{
     public void update(Graphics g) {
         if (backBufferImage!=null) {
             backGraphics = backBufferImage.getGraphics();
-            backGraphics.drawImage(backGround.image, backGround.x, backGround.y, gameW, gameH, null);
+            backGroundController.draw(backGraphics);
             for(IslandController islandController: islandControllers){
                 islandController.draw(backGraphics);
             }
@@ -195,6 +254,12 @@ public class GameWindow extends Frame{
             }
             for(PlayerBulletController playerBulletController:playerBulletControllers){
                 playerBulletController.draw(backGraphics);
+            }
+            for(MineController mineController:mineControllers){
+                mineController.draw(backGraphics);
+            }
+            for(PowerUpController powerUpController:powerUpControllers){
+                powerUpController.draw(backGraphics);
             }
             g.drawImage(backBufferImage, 0, 0, null);
         }

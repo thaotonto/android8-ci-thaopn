@@ -1,5 +1,7 @@
 package models;
 
+import java.awt.*;
+
 /**
  * Created by Thaotonto on 2/28/2017.
  */
@@ -31,5 +33,11 @@ public class GameModel {
 
     public int getHeight() {
         return height;
+    }
+
+    public boolean checkContact(GameModel otherGameModel){
+        Rectangle obj1 = new Rectangle(x,y,width,height);
+        Rectangle obj2 = new Rectangle(otherGameModel.x,otherGameModel.y,otherGameModel.width,otherGameModel.height);
+        return (obj1.intersects(obj2));
     }
 }

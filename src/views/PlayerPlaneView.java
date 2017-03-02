@@ -1,7 +1,4 @@
 package views;
-
-import models.PlayerPlaneModel;
-
 import java.awt.*;
 
 /**
