@@ -226,7 +226,7 @@ public class GameWindow extends Frame{
                         }
                         delayPowerUp++;
                         repaint();
-                    }
+                    } else getGraphics().drawImage(GameInfo.gameOverImage,0,0,GameInfo.gameWidth,GameInfo.gameHeight,null);
                 }
             }
         });

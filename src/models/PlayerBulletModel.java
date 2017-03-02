@@ -17,4 +17,11 @@ public class PlayerBulletModel extends GameModel{
         y-=SPEED;
     }
 
+    public void setWidth(int width){
+        super.width=width;
+    }
+
+    public void setHeight(int height){
+        super.height=height;
+    }
 }

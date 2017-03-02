@@ -36,6 +36,8 @@ public class PlayerBulletController extends GameController {
         ((PlayerBulletView)view).setImageType(pow);
         if (pow!=0){
             time--;
+            ((PlayerBulletModel)model).setWidth(GameInfo.doubleBulletWidth);
+            ((PlayerBulletModel)model).setHeight(GameInfo.doubleBulletHeight);
             if (time==0) pow--;
         }
     }

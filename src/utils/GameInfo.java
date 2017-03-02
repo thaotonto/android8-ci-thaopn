@@ -25,8 +25,8 @@ public class GameInfo {
     public static int bombHeight=32;
     public static int mineWidth=22;
     public static int mineHeight=22;
-    public static int doubleBulletWidth=9;
-    public static int doubleBulletHeight=8;
+    public static int doubleBulletWidth=14;
+    public static int doubleBulletHeight=30;
     public static int bulletLeftWidth=7;
     public static int bulletLeftHeight=7;
     public static int bulletRightWidth=7;
@@ -61,6 +61,7 @@ public class GameInfo {
     public static Image Island1Image=Utils.loadImageFromres("island.png");
     public static Image Island2Image=Utils.loadImageFromres("island-2.png");
     public static Image doubleBulletImage=Utils.loadImageFromres("bullet-double.png");
+    public static Image gameOverImage=Utils.loadImageFromres("wasted.png");
     public static int delayIslandtime=300;
     public static int delayEnemyPlane1time=150;
     public static int delayEnemyPlane2time=200;
