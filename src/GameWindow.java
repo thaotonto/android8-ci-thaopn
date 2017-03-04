@@ -30,6 +30,7 @@ public class GameWindow extends Frame{
     ArrayList<EnemyBulletController> enemyBulletControllers;
     ArrayList<MineController> mineControllers;
     ArrayList<PowerUpController> powerUpControllers;
+
     BackGroundController backGroundController;
     int delayIsland=0;
     int delayEnemyPlane1=0;
@@ -226,7 +227,7 @@ public class GameWindow extends Frame{
                         }
                         delayPowerUp++;
                         repaint();
-                    } else getGraphics().drawImage(GameInfo.gameOverImage,0,0,GameInfo.gameWidth,GameInfo.gameHeight,null);
+                    } //else getGraphics().drawImage(GameInfo.gameOverImage,0,0,GameInfo.gameWidth,GameInfo.gameHeight,null);
                 }
             }
         });

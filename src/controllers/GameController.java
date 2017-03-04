@@ -11,6 +11,7 @@ import java.awt.*;
 public class GameController {
     protected GameModel model;
     protected GameView view;
+    protected boolean active;
 
     public GameController(GameModel model, GameView view) {
         this.model = model;
@@ -23,5 +24,9 @@ public class GameController {
 
     public void draw(Graphics graphics){
         view.draw(graphics, model);
+    }
+
+    public boolean isActive() {
+        return active;
     }
 }
