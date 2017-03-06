@@ -2,57 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="34acc26d-714b-4078-878c-8c1b993a114b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/GameWindow$1.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/GameWindow$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/GameWindow$2.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/GameWindow$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/GameWindow$3.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/GameWindow$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/GameWindow.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/GameWindow.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/BackGroundController.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/BackGroundController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/ControllerManager.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/ControllerManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/EnemyBulletController.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/EnemyBulletController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/EnemyPlaneController.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/EnemyPlaneController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/GameController.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/GameController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/IslandController.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/IslandController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/MineController.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/MineController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/PlayerBulletController.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/PlayerBulletController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/PlayerPlaneController.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/PlayerPlaneController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/PowerUpController.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/controllers/PowerUpController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/models/EnemyBulletModel.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/models/EnemyBulletModel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/models/EnemyPlaneModel.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/models/EnemyPlaneModel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/models/GameModel.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/models/GameModel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/models/IslandModel.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/models/IslandModel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/models/MineModel.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/models/MineModel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/models/PlayerBulletModel.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/models/PlayerBulletModel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/models/PlayerPlaneModel.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/models/PlayerPlaneModel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/models/PowerUpModel.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/models/PowerUpModel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/utils/GameInfo.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/utils/GameInfo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/views/EnemyPlaneView.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/views/EnemyPlaneView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/views/PlayerBulletView.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/views/PlayerBulletView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/android8-ci-thaopn/views/PlayerPlaneView.class" afterPath="$PROJECT_DIR$/out/production/android8-ci-thaopn/views/PlayerPlaneView.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameWindow.java" afterPath="$PROJECT_DIR$/src/GameWindow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/BackGroundController.java" afterPath="$PROJECT_DIR$/src/controllers/BackGroundController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/ControllerManager.java" afterPath="$PROJECT_DIR$/src/controllers/ControllerManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/EnemyBulletController.java" afterPath="$PROJECT_DIR$/src/controllers/EnemyBulletController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/EnemyPlaneController.java" afterPath="$PROJECT_DIR$/src/controllers/EnemyPlaneController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/GameController.java" afterPath="$PROJECT_DIR$/src/controllers/GameController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/IslandController.java" afterPath="$PROJECT_DIR$/src/controllers/IslandController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/MineController.java" afterPath="$PROJECT_DIR$/src/controllers/MineController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/PlayerBulletController.java" afterPath="$PROJECT_DIR$/src/controllers/PlayerBulletController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/PlayerPlaneController.java" afterPath="$PROJECT_DIR$/src/controllers/PlayerPlaneController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/PowerUpController.java" afterPath="$PROJECT_DIR$/src/controllers/PowerUpController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/EnemyBulletModel.java" afterPath="$PROJECT_DIR$/src/models/EnemyBulletModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/EnemyPlaneModel.java" afterPath="$PROJECT_DIR$/src/models/EnemyPlaneModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/GameModel.java" afterPath="$PROJECT_DIR$/src/models/GameModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/IslandModel.java" afterPath="$PROJECT_DIR$/src/models/IslandModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/MineModel.java" afterPath="$PROJECT_DIR$/src/models/MineModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/PlayerBulletModel.java" afterPath="$PROJECT_DIR$/src/models/PlayerBulletModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/PlayerPlaneModel.java" afterPath="$PROJECT_DIR$/src/models/PlayerPlaneModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/PowerUpModel.java" afterPath="$PROJECT_DIR$/src/models/PowerUpModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/GameInfo.java" afterPath="$PROJECT_DIR$/src/utils/GameInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/EnemyBulletView.java" afterPath="$PROJECT_DIR$/src/views/EnemyBulletView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/EnemyPlaneView.java" afterPath="$PROJECT_DIR$/src/views/EnemyPlaneView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/PlayerBulletView.java" afterPath="$PROJECT_DIR$/src/views/PlayerBulletView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/PlayerPlaneView.java" afterPath="$PROJECT_DIR$/src/views/PlayerPlaneView.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -71,7 +23,7 @@
       <file leaf-file-name="PlayerPlaneController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controllers/PlayerPlaneController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
+            <state relative-caret-position="1292">
               <caret line="100" column="15" lean-forward="false" selection-start-line="100" selection-start-column="15" selection-end-line="100" selection-end-column="15" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -87,19 +39,17 @@
       <file leaf-file-name="EnemyBulletView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/views/EnemyBulletView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="31" column="26" lean-forward="true" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="459">
+              <caret line="31" column="26" lean-forward="false" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EnemyPlaneController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EnemyPlaneController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controllers/EnemyPlaneController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
+            <state relative-caret-position="765">
               <caret line="51" column="51" lean-forward="false" selection-start-line="51" selection-start-column="51" selection-end-line="51" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -108,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EnemyBulletModel.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="EnemyBulletModel.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/models/EnemyBulletModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+            <state relative-caret-position="393">
+              <caret line="55" column="23" lean-forward="false" selection-start-line="55" selection-start-column="23" selection-end-line="55" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -123,7 +73,7 @@
       <file leaf-file-name="EnemyBulletController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controllers/EnemyBulletController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
+            <state relative-caret-position="442">
               <caret line="34" column="54" lean-forward="false" selection-start-line="34" selection-start-column="54" selection-end-line="34" selection-end-column="54" />
               <folding />
             </state>
@@ -133,7 +83,7 @@
       <file leaf-file-name="GameInfo.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/utils/GameInfo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
+            <state relative-caret-position="595">
               <caret line="36" column="37" lean-forward="false" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -213,9 +163,9 @@
         <option value="$PROJECT_DIR$/src/views/EnemyBulletView.java" />
         <option value="$PROJECT_DIR$/src/controllers/EnemyBulletController.java" />
         <option value="$PROJECT_DIR$/src/utils/GameInfo.java" />
-        <option value="$PROJECT_DIR$/src/models/EnemyBulletModel.java" />
         <option value="$PROJECT_DIR$/src/controllers/PlayerPlaneController.java" />
         <option value="$PROJECT_DIR$/src/controllers/EnemyPlaneController.java" />
+        <option value="$PROJECT_DIR$/src/models/EnemyBulletModel.java" />
       </list>
     </option>
   </component>
@@ -243,6 +193,21 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android8-ci-thaopn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android8-ci-thaopn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -344,21 +309,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android8-ci-thaopn" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android8-ci-thaopn" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -680,7 +630,7 @@
         <state relative-caret-position="359">
           <caret line="25" column="10" lean-forward="false" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -939,7 +889,7 @@
         <state relative-caret-position="171">
           <caret line="165" column="17" lean-forward="false" selection-start-line="165" selection-start-column="17" selection-end-line="165" selection-end-column="17" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -965,7 +915,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/GameInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
+        <state relative-caret-position="595">
           <caret line="36" column="37" lean-forward="false" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -975,17 +925,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/EnemyBulletView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="31" column="26" lean-forward="true" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="459">
+          <caret line="31" column="26" lean-forward="false" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/controllers/PlayerPlaneController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
+        <state relative-caret-position="1292">
           <caret line="100" column="15" lean-forward="false" selection-start-line="100" selection-start-column="15" selection-end-line="100" selection-end-column="15" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -997,9 +945,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/EnemyPlaneController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="51" column="51" lean-forward="false" selection-start-line="51" selection-start-column="51" selection-end-line="51" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/controllers/EnemyBulletController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
+        <state relative-caret-position="442">
           <caret line="34" column="54" lean-forward="false" selection-start-line="34" selection-start-column="54" selection-end-line="34" selection-end-column="54" />
           <folding />
         </state>
@@ -1007,18 +965,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/models/EnemyBulletModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/EnemyPlaneController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="51" column="51" lean-forward="false" selection-start-line="51" selection-start-column="51" selection-end-line="51" selection-end-column="51" />
+        <state relative-caret-position="393">
+          <caret line="55" column="23" lean-forward="false" selection-start-line="55" selection-start-column="23" selection-end-line="55" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

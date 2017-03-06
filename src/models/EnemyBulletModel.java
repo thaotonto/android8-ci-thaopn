@@ -8,6 +8,10 @@ import utils.GameInfo;
  */
 public class EnemyBulletModel extends GameModel {
     private int type;
+    private int flag;
+    private int playerx;
+    private int playery;
+
 
     {
         SPEED = GameInfo.speedEnemyBullet;
@@ -38,12 +42,18 @@ public class EnemyBulletModel extends GameModel {
     }
 
     public void moveToPlayer() {
-        double dist = Math.sqrt(Math.pow(PlayerPlaneController.getPlayerY() - y, 2.0) + Math.pow(x - PlayerPlaneController.getPlayerX(), 2.0));
-        double tempX = SPEED/2 * (x - PlayerPlaneController.getPlayerX()) / dist;
-
-        double tempY = SPEED/2 * (PlayerPlaneController.getPlayerY() - y) / dist;
+        if (flag==0){
+            playerx=PlayerPlaneController.getPlayerX();
+            playery=PlayerPlaneController.getPlayerY();
+        }
+        flag++;
+        double dist = Math.sqrt(Math.pow(playery - y, 2.0) + Math.pow(x - playerx, 2.0));
+        double tempX = SPEED/2 * ((x - playerx)) / dist;
+        double tempY = SPEED/2 * ((playery - y)) / dist;
         x -= tempX;
         y += tempY;
+
+        if (x==playerx ) moveDown();
     }
 
     public int getType() {
