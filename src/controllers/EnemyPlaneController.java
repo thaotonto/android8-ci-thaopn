@@ -11,100 +11,80 @@ import java.util.ArrayList;
 /**
  * Created by Thaotonto on 2/26/2017.
  */
-public class EnemyPlaneController extends GameController{
+public class EnemyPlaneController extends GameController {
 
-    private boolean active=true;
-    private int delayBullet=0;
-    private boolean explode=false;
-    ArrayList<EnemyBulletController> enemyBulletControllers;
+    private int delayBullet = 0;
+    private boolean explode = false;
+    private int health;
+    private int type;
+    private int delay;
 
-    public EnemyPlaneController(GameModel model, GameView view,ArrayList<EnemyBulletController> enemyBulletControllers,int type) {
+
+    public EnemyPlaneController(GameModel model, GameView view, int type) {
         super(model, view);
-        this.enemyBulletControllers=enemyBulletControllers;
-        ((EnemyPlaneView)view).setImageType((EnemyPlaneModel)model);
+        this.type = type;
+        switch (type) {
+            case 1:
+                health = 1;
+                break;
+            case 2:
+                health = 3;
+                break;
+        }
+        ((EnemyPlaneView) view).setImageType(type);
     }
 
-    public EnemyPlaneController(int x,int y,ArrayList<EnemyBulletController> enemyBulletControllers,int type) {
-        this(new EnemyPlaneModel(x,y, GameInfo.enemyPlaneWidth,GameInfo.enemyPlaneHeight,type),
-                new EnemyPlaneView(GameInfo.enemyPlanewhite3Image),enemyBulletControllers,type);
+    public EnemyPlaneController(int x, int y, int type) {
+        this(new EnemyPlaneModel(x, y, GameInfo.enemyPlaneWidth, GameInfo.enemyPlaneHeight),
+                new EnemyPlaneView(GameInfo.enemyPlanewhite3Image), type);
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void run(){
-        if (model instanceof EnemyPlaneModel){
-            if(view instanceof EnemyPlaneView){
-                ((EnemyPlaneModel) model).fly();
-                if (model.getY()>GameInfo.gameHeight) active=false;
-                if (explode==true) {
-                    ((EnemyPlaneView) view).explode();
-                    if (((EnemyPlaneView)view).isExploded()==true) setActive();
+    public void run() {
+        if (model instanceof EnemyPlaneModel) {
+            if (view instanceof EnemyPlaneView) {
+                switch (type) {
+                    case 1:
+                        ((EnemyPlaneModel) model).moveDown();
+                        shoot();
+                        break;
+                    case 2:
+                        if (model.getX()> GameInfo.gameWidth/2) delay++;
+                        if (delay==0 || delay > 100) {
+                            ((EnemyPlaneModel) model).moveRight();
+                            ((EnemyPlaneModel) model).moveDown();
+                            shoot();
+                        }
+                        break;
                 }
-                else
-                ((EnemyPlaneView)view).updateImage();
+
+                if (model.getY() > GameInfo.gameHeight) active = false;
+                if (explode == true) {
+                    ((EnemyPlaneView) view).explode();
+                    if (((EnemyPlaneView) view).isExploded() == true) active = false;
+                } else {
+                    ((EnemyPlaneView) view).updateImage();
+                    delayBullet++;
+
+                }
             }
         }
 
     }
 
-    public void shoot(){
-        if (delayBullet==GameInfo.delayBullettime && explode==false) {
+    public void shoot() {
+        if (delayBullet == GameInfo.delayBullettime && explode == false) {
             EnemyBulletController enemyBulletController = new EnemyBulletController(model.getX() + model.getWidth() / 2 - GameInfo.enemyBulletWidth / 2,
-                    model.getY() + 5);
-            enemyBulletControllers.add(enemyBulletController);
-            setDelayBullet(0);
+                    model.getY() + 5, type);
+            ControllerManager.addGameController(enemyBulletController);
+            delayBullet = 0;
         }
     }
 
-    public void setDelayBullet() {
-        this.delayBullet += 1;
+    public void onContact(GameController other) {
     }
 
-    public void setDelayBullet(int delayBullet) {
-        this.delayBullet = delayBullet;
+    public void getHit(int damage) {
+        health -= damage;
+        if (health <= 0) explode = true;
     }
-
-    public int getX(){
-        return model.getX();
-    }
-
-    public int getY(){
-        return model.getY();
-    }
-
-//    public void isExplode(PlayerBulletController playerBulletController) {
-//        if (model.checkContact(playerBulletController.getModel())==true) {
-//            ((EnemyPlaneModel)model).setHealth();
-//            if (((EnemyPlaneModel) model).getHealth()==0)
-//                explode = true;
-//            playerBulletController.setActive();
-//        }
-//    }
-
-    public GameModel getModel(){
-        return model;
-    }
-
-    public void setExplode(){
-        explode=true;
-    }
-
-    public boolean getExplode(){
-        return explode;
-    }
-
-    public void setActive() {
-        this.active = false;
-    }
-
-    public int getHealth(){
-        return ((EnemyPlaneModel)model).getHealth();
-    }
-
-    public void setHealth(){
-        ((EnemyPlaneModel)model).setHealth();
-    }
-
 }

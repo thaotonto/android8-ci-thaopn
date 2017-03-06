@@ -33,6 +33,8 @@ public class GameInfo {
     public static int bulletRightHeight=7;
     public static int roundBulletWidth=6;
     public static int roundBulletHeight=6;
+    public static int rocketWidth=10;
+    public static int rocketHeight=40;
     public static Image BackGroundImage=Utils.loadImageFromres("background.png");
     public static Image playerPlane1Image=Utils.loadImageFromres("plane1.png");
     public static Image playerPlane2Image=Utils.loadImageFromres("plane2.png");
@@ -61,7 +63,12 @@ public class GameInfo {
     public static Image Island1Image=Utils.loadImageFromres("island.png");
     public static Image Island2Image=Utils.loadImageFromres("island-2.png");
     public static Image doubleBulletImage=Utils.loadImageFromres("bullet-double.png");
+    public static Image bulletRoundImage=Utils.loadImageFromres("bullet-round.png");
     public static Image gameOverImage=Utils.loadImageFromres("wasted.png");
+    public static Image rocket1Image=Utils.loadImageFromres("rocket-0.png");
+    public static Image rocket2Image=Utils.loadImageFromres("rocket-1.png");
+    public static Image rocket3Image=Utils.loadImageFromres("rocket-2.png");
+    public static Image rocket4Image=Utils.loadImageFromres("rocket-3.png");
     public static int delayIslandtime=300;
     public static int delayEnemyPlane1time=150;
     public static int delayEnemyPlane2time=200;

@@ -14,13 +14,16 @@ public class PlayerBulletView extends GameView{
         super(image);
     }
 
-    public void setImageType(int pow){
-        switch (pow){
-            default:
-                image= GameInfo.doubleBulletImage;
-                break;
+    public void setImage(int type){
+        switch (type){
             case 0:
                 image=GameInfo.bulletImage;
+                break;
+            case 1:
+                image= GameInfo.doubleBulletImage;
+                break;
+            case 2:
+                image= GameInfo.bulletRoundImage;
                 break;
         }
     }

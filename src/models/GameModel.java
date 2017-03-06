@@ -1,5 +1,7 @@
 package models;
 
+import utils.GameInfo;
+
 import java.awt.*;
 
 /**
@@ -35,9 +37,25 @@ public class GameModel {
         return height;
     }
 
-    public boolean checkContact(GameModel otherGameModel){
-        Rectangle obj1 = new Rectangle(x,y,width,height);
-        Rectangle obj2 = new Rectangle(otherGameModel.x,otherGameModel.y,otherGameModel.width,otherGameModel.height);
+    public boolean checkContact(GameModel otherGameModel) {
+        Rectangle obj1 = new Rectangle(x, y, width, height);
+        Rectangle obj2 = new Rectangle(otherGameModel.x, otherGameModel.y, otherGameModel.width, otherGameModel.height);
         return (obj1.intersects(obj2));
+    }
+
+    public void moveLeft() {
+        x -= SPEED;
+    }
+
+    public void moveRight() {
+        x += SPEED;
+    }
+
+    public void moveUp() {
+        y -= SPEED;
+    }
+
+    public void moveDown() {
+        y += SPEED;
     }
 }

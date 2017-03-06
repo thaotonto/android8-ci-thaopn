@@ -7,13 +7,12 @@ import utils.GameInfo;
  */
 public class IslandModel extends GameModel {
 
-    private static final int SPEED = GameInfo.speedIsland;
+    {
+        SPEED = GameInfo.speedIsland;
+    }
 
     public IslandModel(int x, int y, int width, int height) {
         super(x, y, width, height);
     }
 
-    public void move(){
-        y+=SPEED;
-    }
 }

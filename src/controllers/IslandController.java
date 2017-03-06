@@ -26,7 +26,7 @@ public class IslandController extends GameController{
 
     public void run(){
         if (model instanceof IslandModel){
-            ((IslandModel) model).move();
+            ((IslandModel) model).moveDown();
             if (model.getY()> GameInfo.gameHeight) active=false;
         }
     }

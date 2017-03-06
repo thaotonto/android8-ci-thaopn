@@ -69,8 +69,8 @@ public class EnemyPlaneView extends GameView{
         }
     }
 
-    public void setImageType(EnemyPlaneModel model){
-        switch (model.getType()){
+    public void setImageType(int type){
+        switch (type){
             case 1:
                 image=GameInfo.enemyPlanewhite1Image;
                 image1=GameInfo.enemyPlanewhite1Image;

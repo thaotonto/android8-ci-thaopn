@@ -12,7 +12,6 @@ import java.awt.*;
  * Created by Thaotonto on 3/2/2017.
  */
 public class PowerUpController extends GameController {
-    private boolean active=true;
     public PowerUpController(GameModel model, GameView view) {
         super(model, view);
     }
@@ -24,20 +23,14 @@ public class PowerUpController extends GameController {
 
     public void run(){
         if (model instanceof PowerUpModel){
-            ((PowerUpModel) model).move();
+            ((PowerUpModel) model).moveDown();
             if (model.getY()> GameInfo.gameHeight) active=false;
         }
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public GameModel getModel(){
-        return model;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
+    public void onContact(GameController other) {
+        if (other instanceof PlayerPlaneController){
+           active=false;
+        }
     }
 }

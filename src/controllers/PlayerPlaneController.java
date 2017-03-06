@@ -1,7 +1,6 @@
 package controllers;
 
 import models.GameModel;
-import models.PlayerBulletModel;
 import models.PlayerPlaneModel;
 import utils.GameInfo;
 import views.GameView;
@@ -15,48 +14,37 @@ import java.util.ArrayList;
  */
 public class PlayerPlaneController extends GameController {
 
-    private boolean active = true;
     private boolean isLeft = false;
     private boolean isRight = false;
     private boolean isUp = false;
     private boolean isDown = false;
     private boolean isShoot = false;
-    private int pow;
     private int time;
+    private int delay = 0;
+    private int type = 1;
+    private int bulletType = 0;
+    private static int playerX;
+    private static int playerY;
 
-    ArrayList<PlayerBulletController> playerBulletControllers;
 
-
-    public PlayerPlaneController(GameModel model, GameView view, ArrayList<PlayerBulletController> playerBulletControllers) {
+    public PlayerPlaneController(GameModel model, GameView view) {
         super(model, view);
-        this.playerBulletControllers=playerBulletControllers;
     }
 
-    public PlayerPlaneController(int x,int y,ArrayList<PlayerBulletController> playerBulletControllers) {
-        this( new PlayerPlaneModel(x,y, GameInfo.playerPlaneWidth,GameInfo.playerPlaneHeight),
-                new PlayerPlaneView(GameInfo.playerPlane1Image),
-                playerBulletControllers);
+    public PlayerPlaneController(int x, int y) {
+        this(new PlayerPlaneModel(x, y, GameInfo.playerPlaneWidth, GameInfo.playerPlaneHeight),
+                new PlayerPlaneView(GameInfo.playerPlane1Image));
     }
 
-    public void shoot(){
-        PlayerBulletController playerBulletController = new PlayerBulletController(model.getX()+model.getWidth()/2-GameInfo.playerBulletWidth/2,
-                model.getY());
-        if (time==0) pow=0;
-        playerBulletController.setPow(pow);
-        if (playerBulletControllers.size()!=0){
-            PlayerBulletController prePlayerBulletController = playerBulletControllers.get(playerBulletControllers.size()-1);
-            if (playerBulletController.checkSpawm(prePlayerBulletController)==true)
-                playerBulletControllers.add(playerBulletController);
-        } else  playerBulletControllers.add(playerBulletController);
-    }
-
-    public boolean isActive() {
-        return active;
+    public void shoot() {
+        PlayerBulletController playerBulletController = new PlayerBulletController(model.getX() + model.getWidth() / 2 - GameInfo.playerBulletWidth / 2,
+                model.getY(), bulletType);
+        ControllerManager.addGameController(playerBulletController);
     }
 
     @Override
     public void run() {
-        if (active==true) {
+        if (active == true) {
             if (isLeft == true)
                 ((PlayerPlaneModel) model).moveLeft();
             if (isRight == true)
@@ -65,17 +53,27 @@ public class PlayerPlaneController extends GameController {
                 ((PlayerPlaneModel) model).moveUp();
             if (isDown == true)
                 ((PlayerPlaneModel) model).moveDown();
-            if (isShoot == true)
+            if (isShoot == true && delay > 8) {
+                delay = 0;
                 shoot();
-            if (time!=0) time--;
+            }
+            delay++;
+            if (time != 0) time--;
+            else {
+                ((PlayerPlaneView) view).setImage(1);
+                bulletType=0;
+                type=1;
+            }
+            playerX=model.getX() + model.getWidth() / 2;
+            playerY=model.getY();
         }
     }
 
-    public int getX(){
+    public  int getX() {
         return model.getX();
     }
 
-    public int getY(){
+    public int getY() {
         return model.getY();
     }
 
@@ -99,32 +97,60 @@ public class PlayerPlaneController extends GameController {
         isShoot = shoot;
     }
 
-    public void contact(EnemyPlaneController enemyPlaneController) {
-        if (model.checkContact(enemyPlaneController.getModel())==true) {
-            enemyPlaneController.setExplode();
-            active=false;
-        }
+    public static int getPlayerX() {
+        return  playerX;
     }
 
-    public void contact(MineController mineController) {
-        if (model.checkContact(mineController.getModel())==true) {
-            mineController.setExplode();
-            active=false;
-        }
+    public static  int getPlayerY() {
+        return playerY;
     }
 
-    public void contact(EnemyBulletController enemyBulletController) {
-        if (model.checkContact(enemyBulletController.getModel())==true) {
-            enemyBulletController.setActive(false);
-            active=false;
-        }
-    }
 
-    public void contact(PowerUpController powerUpController) {
-        if (model.checkContact(powerUpController.getModel())==true) {
-            powerUpController.setActive(false);
-            pow=1;
-            time=500;
+    public void onContact(GameController other) {
+        if (other instanceof PowerUpController) {
+            switch (type) {
+                case 1:
+                    ((PlayerPlaneView) view).setImage(4);
+                    type=4;
+                    time = 600;
+                    break;
+                case 4:
+                    bulletType = 1;
+                    time = 300;
+                    break;
+            }
+        }
+
+        if (other instanceof EnemyPlaneController){
+            ((EnemyPlaneController) other).getHit(100);
+            switch (type){
+                case 1:
+                    active=false;
+                    break;
+                case 4:
+                    break;
+            }
+
+        }
+
+        if (other instanceof EnemyBulletController){
+            switch (type){
+                case 1:
+                    active=false;
+                    break;
+                case 4:
+                    break;
+            }
+        }
+
+        if (other instanceof MineController){
+            switch (type){
+                case 1:
+                    active=false;
+                    break;
+                case 4:
+                    break;
+            }
         }
     }
 }
