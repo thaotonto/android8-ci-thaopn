@@ -47,13 +47,14 @@ public class EnemyBulletModel extends GameModel {
             playery=PlayerPlaneController.getPlayerY();
         }
         flag++;
-        double dist = Math.sqrt(Math.pow(playery - y, 2.0) + Math.pow(x - playerx, 2.0));
-        double tempX = SPEED/2 * ((x - playerx)) / dist;
-        double tempY = SPEED/2 * ((playery - y)) / dist;
-        x -= tempX;
-        y += tempY;
-
-        if (x==playerx ) moveDown();
+        if (y < playery) {
+            double dist = Math.sqrt(Math.pow(playery - y, 2.0) + Math.pow(x - playerx, 2.0));
+            double tempX = SPEED * ((x - playerx)) / dist;
+            double tempY = SPEED * ((playery - y)) / dist;
+            x -= tempX;
+            y += tempY;
+        }
+        else moveDown();
     }
 
     public int getType() {
