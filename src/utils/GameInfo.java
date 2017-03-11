@@ -39,7 +39,7 @@ public class GameInfo {
     public static Image playerPlane1Image=Utils.loadImageFromres("playerShip1_red.png");
     public static Image playerPlane2Image=Utils.loadImageFromres("plane2.png");
     public static Image playerPlane3Image=Utils.loadImageFromres("plane3.png");
-    public static Image playerPlane4Image=Utils.loadImageFromres("playerShip3_red.png");
+    public static Image playerPlane4Image=Utils.loadImageFromres("ufoRed.png");
     public static Image enemyPlanewhite1Image=Utils.loadImageFromres("enemy_plane_white_1.png");
     public static Image enemyPlanewhite2Image=Utils.loadImageFromres("enemy_plane_white_2.png");
     public static Image enemyPlanewhite3Image=Utils.loadImageFromres("enemy_plane_white_3.png");
