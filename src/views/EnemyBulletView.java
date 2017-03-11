@@ -1,6 +1,7 @@
 package views;
 
 
+import controllers.EnemyPlaneController;
 import utils.GameInfo;
 
 import java.awt.*;
@@ -33,15 +34,15 @@ public class EnemyBulletView extends GameView{
             }
     }
 
-    public void setImage(int type){
+    public void setImage(EnemyPlaneController.EnemyType type){
         switch (type){
-            case 2:
+            case YELLOW:
                 image= GameInfo.rocket1Image;
                 image1=GameInfo.rocket2Image;
                 image2=GameInfo.rocket3Image;
                 image3=GameInfo.rocket4Image;
                 break;
-            case 1:
+            case WHITE:
                 break;
         }
     }

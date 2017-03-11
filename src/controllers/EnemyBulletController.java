@@ -19,7 +19,7 @@ public class EnemyBulletController extends GameController {
     }
 
 
-    public EnemyBulletController(int x, int y, int type) {
+    public EnemyBulletController(int x, int y, EnemyPlaneController.EnemyType type) {
         this(new EnemyBulletModel(x, y, GameInfo.enemyBulletWidth, GameInfo.enemyBulletHeight,type),
                 new EnemyBulletView(GameInfo.enemyBulletImage));
     }
@@ -28,10 +28,10 @@ public class EnemyBulletController extends GameController {
         EnemyBulletModel enemyBulletModel = (EnemyBulletModel) model;
         ((EnemyBulletView)view).setImage(((EnemyBulletModel) model).getType());
         switch (enemyBulletModel.getType()){
-            case 1:
+            case WHITE:
                 enemyBulletModel.moveDown();
                 break;
-            case 2:
+            case YELLOW:
                 ((EnemyBulletView)view).updateImage();
                 enemyBulletModel.moveToPlayer();
                 break;
@@ -47,9 +47,9 @@ public class EnemyBulletController extends GameController {
         if (other instanceof PlayerBulletController){
            if (model instanceof EnemyBulletModel){
                switch (((EnemyBulletModel) model).getType()){
-                   case 1:
+                   case WHITE:
                        break;
-                   case 2:
+                   case GREEN:
                        active=false;
                        break;
                }

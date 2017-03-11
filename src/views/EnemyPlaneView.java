@@ -1,5 +1,6 @@
 package views;
 
+import controllers.EnemyPlaneController;
 import models.EnemyPlaneModel;
 import utils.GameInfo;
 
@@ -69,19 +70,22 @@ public class EnemyPlaneView extends GameView{
         }
     }
 
-    public void setImageType(int type){
+    public void setImageType(EnemyPlaneController.EnemyType type){
         switch (type){
-            case 1:
+            case WHITE:
                 image=GameInfo.enemyPlanewhite1Image;
                 image1=GameInfo.enemyPlanewhite1Image;
                 image2=GameInfo.enemyPlanewhite2Image;
                 image3=GameInfo.enemyPlanewhite3Image;
                 break;
-            case 2:
+            case YELLOW:
                 image=GameInfo.enemyPlaneyellow1Image;
                 image1=GameInfo.enemyPlaneyellow1Image;
                 image2=GameInfo.enemyPlaneyellow2Image;
                 image3=GameInfo.enemyPlaneyellow3Image;
+                break;
+            case GREEN:
+                image=GameInfo.enemyPlanegreen1Image;
                 break;
         }
     }

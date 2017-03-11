@@ -1,5 +1,6 @@
 package models;
 
+import controllers.EnemyPlaneController;
 import controllers.PlayerPlaneController;
 import utils.GameInfo;
 
@@ -7,7 +8,7 @@ import utils.GameInfo;
  * Created by Thaotonto on 2/27/2017.
  */
 public class EnemyBulletModel extends GameModel {
-    private int type;
+    private EnemyPlaneController.EnemyType type;
     private int flag;
     private int playerx;
     private int playery;
@@ -17,28 +18,18 @@ public class EnemyBulletModel extends GameModel {
         SPEED = GameInfo.speedEnemyBullet;
     }
 
-    public EnemyBulletModel(int x, int y, int width, int height, int type) {
+    public EnemyBulletModel(int x, int y, int width, int height, EnemyPlaneController.EnemyType type) {
         super(x, y, width, height);
         this.type = type;
         switch (type){
-            case 2:
+            case YELLOW:
                 this.x= x + GameInfo.enemyBulletWidth /2 - GameInfo.rocketWidth/2;
                 this.width = GameInfo.rocketWidth;
                 this.height = GameInfo.rocketHeight;
                 break;
-            case 1:
+            case WHITE:
                 break;
         }
-    }
-
-    public void moveRightDown() {
-        x += (SPEED - 3);
-        y += SPEED;
-    }
-
-    public void moveLeftDown() {
-        x -= (SPEED - 3);
-        y += SPEED;
     }
 
     public void moveToPlayer() {
@@ -57,7 +48,7 @@ public class EnemyBulletModel extends GameModel {
         else moveDown();
     }
 
-    public int getType() {
+    public EnemyPlaneController.EnemyType getType() {
         return type;
     }
 }

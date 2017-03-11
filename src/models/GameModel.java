@@ -58,4 +58,14 @@ public class GameModel {
     public void moveDown() {
         y += SPEED;
     }
+
+    public void moveRightDown() {
+        x += (SPEED );
+        y += SPEED;
+    }
+
+    public void moveLeftDown() {
+        x -= (SPEED - 1);
+        y += SPEED;
+    }
 }

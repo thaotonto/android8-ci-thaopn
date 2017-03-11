@@ -150,13 +150,13 @@ public class GameWindow extends Frame {
                         }
 
                         if (delayEnemyPlane1 == GameInfo.delayEnemyPlane1time) {
-                            EnemyPlaneController enemyPlaneController = new EnemyPlaneController(random.nextInt(GameInfo.gameWidth) - GameInfo.enemyPlaneWidth, 0, 1);
+                            EnemyPlaneController enemyPlaneController = EnemyPlaneController.create(EnemyPlaneController.EnemyType.WHITE);
                             controllerManager.addGameController(enemyPlaneController);
                             delayEnemyPlane1 = 0;
                         }
 
                         if (delayEnemyPlane2 == GameInfo.delayEnemyPlane2time) {
-                            EnemyPlaneController enemyPlaneController = new EnemyPlaneController(0, 0, 2);
+                            EnemyPlaneController enemyPlaneController = EnemyPlaneController.create(EnemyPlaneController.EnemyType.YELLOW);
                             controllerManager.addGameController(enemyPlaneController);
                             delayEnemyPlane2 = 0;
                         }

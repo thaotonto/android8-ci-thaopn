@@ -15,8 +15,8 @@ public class GameInfo {
     public static int playerBulletHeight=20;
     public static int enemyPlaneWidth=22;
     public static int enemyPlaneHeight=22;
-    public static int enemyBulletWidth=22;
-    public static int enemyBulletHeight=22;
+    public static int enemyBulletWidth=7;
+    public static int enemyBulletHeight=20;
     public static int isLandWidth=64;
     public static int isLandHeight=60;
     public static int powerUpWidth=24;
@@ -35,11 +35,11 @@ public class GameInfo {
     public static int roundBulletHeight=6;
     public static int rocketWidth=10;
     public static int rocketHeight=40;
-    public static Image BackGroundImage=Utils.loadImageFromres("background.png");
-    public static Image playerPlane1Image=Utils.loadImageFromres("plane1.png");
+    public static Image BackGroundImage=Utils.loadImageFromres("blue.png");
+    public static Image playerPlane1Image=Utils.loadImageFromres("playerShip1_red.png");
     public static Image playerPlane2Image=Utils.loadImageFromres("plane2.png");
     public static Image playerPlane3Image=Utils.loadImageFromres("plane3.png");
-    public static Image playerPlane4Image=Utils.loadImageFromres("plane4.png");
+    public static Image playerPlane4Image=Utils.loadImageFromres("playerShip3_red.png");
     public static Image enemyPlanewhite1Image=Utils.loadImageFromres("enemy_plane_white_1.png");
     public static Image enemyPlanewhite2Image=Utils.loadImageFromres("enemy_plane_white_2.png");
     public static Image enemyPlanewhite3Image=Utils.loadImageFromres("enemy_plane_white_3.png");
@@ -58,8 +58,8 @@ public class GameInfo {
     public static Image mineImage=Utils.loadImageFromres("mine.png");
     public static Image bombImage=Utils.loadImageFromres("bomb.png");
     public static Image powerUpImage=Utils.loadImageFromres("power-up.png");
-    public static Image enemyBulletImage=Utils.loadImageFromres("enemy_bullet.png");
-    public static Image bulletImage=Utils.loadImageFromres("bullet.png");
+    public static Image enemyBulletImage=Utils.loadImageFromres("laserRed13.png");
+    public static Image bulletImage=Utils.loadImageFromres("laserBlue13.png");
     public static Image Island1Image=Utils.loadImageFromres("island.png");
     public static Image Island2Image=Utils.loadImageFromres("island-2.png");
     public static Image doubleBulletImage=Utils.loadImageFromres("bullet-double.png");

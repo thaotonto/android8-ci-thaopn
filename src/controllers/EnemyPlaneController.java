@@ -1,61 +1,69 @@
 package controllers;
 
+import controllers.strategies.MoveBehavior;
+import controllers.strategies.MoveDownBehavior;
+import controllers.strategies.MoveDownRightBehavior;
 import models.EnemyPlaneModel;
 import models.GameModel;
 import utils.GameInfo;
 import views.EnemyPlaneView;
 import views.GameView;
 
-import java.util.ArrayList;
+import java.util.Random;
+
 
 /**
  * Created by Thaotonto on 2/26/2017.
  */
 public class EnemyPlaneController extends GameController {
 
+    private static Random random= new Random();
     private int delayBullet = 0;
     private boolean explode = false;
     private int health;
-    private int type;
+    private EnemyType type;
     private int delay;
+    private MoveBehavior moveBehavior;
+
+    public enum EnemyType {
+        GREEN,
+        YELLOW,
+        WHITE
+    }
 
 
-    public EnemyPlaneController(GameModel model, GameView view, int type) {
+    public EnemyPlaneController(GameModel model, GameView view, EnemyType type) {
         super(model, view);
         this.type = type;
         switch (type) {
-            case 1:
-                health = 1;
+            case WHITE:
+                health = 5;
                 break;
-            case 2:
-                health = 3;
+            case YELLOW:
+                health = 10;
                 break;
         }
         ((EnemyPlaneView) view).setImageType(type);
     }
 
-    public EnemyPlaneController(int x, int y, int type) {
-        this(new EnemyPlaneModel(x, y, GameInfo.enemyPlaneWidth, GameInfo.enemyPlaneHeight),
-                new EnemyPlaneView(GameInfo.enemyPlanewhite3Image), type);
-    }
 
     public void run() {
         if (model instanceof EnemyPlaneModel) {
             if (view instanceof EnemyPlaneView) {
-                switch (type) {
-                    case 1:
-                        ((EnemyPlaneModel) model).moveDown();
-                        shoot();
-                        break;
-                    case 2:
-                        if (model.getX()> GameInfo.gameWidth/2) delay++;
-                        if (delay==0 || delay > 100) {
-                            ((EnemyPlaneModel) model).moveRight();
-                            ((EnemyPlaneModel) model).moveDown();
-                            shoot();
-                        }
-                        break;
-                }
+//                switch (type) {
+//                    case 1:
+//                        ((EnemyPlaneModel) model).moveDown();
+//                        shoot();
+//                        break;
+//                    case 2:
+//                        if (model.getX() > GameInfo.gameWidth / 2) delay++;
+//                        if (delay == 0 || delay > 100) {
+//                            ((EnemyPlaneModel) model).moveRight();
+//                            ((EnemyPlaneModel) model).moveDown();
+//
+//                        }
+//                        break;
+//                }
 
                 if (model.getY() > GameInfo.gameHeight) active = false;
                 if (explode == true) {
@@ -66,6 +74,10 @@ public class EnemyPlaneController extends GameController {
                     delayBullet++;
 
                 }
+                if (moveBehavior != null) {
+                    moveBehavior.move(this.model);
+                }
+                shoot();
             }
         }
 
@@ -86,5 +98,31 @@ public class EnemyPlaneController extends GameController {
     public void getHit(int damage) {
         health -= damage;
         if (health <= 0) explode = true;
+    }
+
+
+    public void setMoveBehavior(MoveBehavior moveBehavior) {
+        this.moveBehavior = moveBehavior;
+    }
+
+    public static EnemyPlaneController create(EnemyType type) {
+        if (type == EnemyType.YELLOW) {
+            EnemyPlaneController enemyPlaneController = new EnemyPlaneController(
+                    new EnemyPlaneModel(0, 0, 25, 25),
+                    new EnemyPlaneView(GameInfo.enemyPlaneyellow1Image),
+                    EnemyType.YELLOW
+            );
+            enemyPlaneController.setMoveBehavior(new MoveDownRightBehavior());
+            return enemyPlaneController;
+        } else if (type == EnemyType.WHITE) {
+            EnemyPlaneController enemyPlaneController = new EnemyPlaneController(
+                    new EnemyPlaneModel(random.nextInt(GameInfo.gameWidth) - GameInfo.enemyPlaneWidth, 0, GameInfo.enemyPlaneWidth, GameInfo.enemyPlaneHeight),
+                    new EnemyPlaneView(GameInfo.enemyPlanewhite1Image),
+                    EnemyType.WHITE
+            );
+            enemyPlaneController.setMoveBehavior(new MoveDownBehavior());
+            return enemyPlaneController;
+        }
+        return null;
     }
 }
